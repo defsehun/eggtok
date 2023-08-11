@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/authentication/sign_up_screen.dart';
 
 void main() {
   runApp(const StreetWorkoutApp());
@@ -16,8 +18,19 @@ class StreetWorkoutApp extends StatelessWidget {
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         //useMaterial3: true,
         primaryColor: const Color(0xFFE9435A),
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: Sizes.size18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
-      home: Container(),
+      home: const SignUpScreen(),
     );
   }
 }
