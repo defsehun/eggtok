@@ -5,13 +5,13 @@ import 'package:street_workout/constants/sizes.dart';
 class AuthButton extends StatelessWidget {
   final String text;
   final FaIcon icon;
-  final void Function(BuildContext) onAuthTap;
+  final Function(BuildContext)? onAuthTap;
 
   const AuthButton({
     super.key,
     required this.text,
     required this.icon,
-    required this.onAuthTap,
+    this.onAuthTap,
   });
 
   @override
@@ -19,7 +19,11 @@ class AuthButton extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: GestureDetector(
-        onTap: () => onAuthTap(context),
+        onTap: () {
+          if (onAuthTap != null) {
+            onAuthTap!(context);
+          }
+        },
         child: Container(
           padding: const EdgeInsets.all(Sizes.size14),
           decoration: BoxDecoration(
