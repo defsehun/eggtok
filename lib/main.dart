@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/authentication/sign_up_screen.dart';
+import 'package:street_workout/features/onboarding/interests_screen.dart';
 
 void main() {
   runApp(const StreetWorkoutApp());
@@ -30,7 +30,8 @@ class StreetWorkoutApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SignUpScreen(),
+      // home: const SignUpScreen(),
+      home: const InterestsScreen(),
     );
   }
 }
