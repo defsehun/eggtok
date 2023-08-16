@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
@@ -93,13 +94,20 @@ class _TutorialScreenState extends State<TutorialScreen> {
         bottomNavigationBar: BottomAppBar(
           child: Container(
             padding: const EdgeInsets.symmetric(
-              vertical: Sizes.size48,
+              vertical: Sizes.size20,
             ),
-            child: const Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TabPageSelector(
+                const TabPageSelector(
                   selectedColor: Colors.black38,
+                ),
+                Gaps.v20,
+                CupertinoButton(
+                  onPressed: () {},
+                  color: Theme.of(context).primaryColor,
+                  child: const Text("Enter the app!"),
                 ),
               ],
             ),
