@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
 
 enum Direction { right, left }
 
@@ -42,6 +43,15 @@ class _TutorialAnimatedScreenState extends State<TutorialAnimatedScreen> {
         _showingPage = Page.first;
       });
     }
+  }
+
+  void _onEnterAppTap() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const MainNavigaionScreen(),
+      ),
+      (route) => false,
+    );
   }
 
   @override
@@ -114,7 +124,7 @@ class _TutorialAnimatedScreenState extends State<TutorialAnimatedScreen> {
               duration: const Duration(milliseconds: 300),
               opacity: _showingPage == Page.first ? 0 : 1,
               child: CupertinoButton(
-                onPressed: () {},
+                onPressed: _onEnterAppTap,
                 color: Theme.of(context).primaryColor,
                 child: const Text("Enter the app!"),
               ),

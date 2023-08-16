@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
 
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({super.key});
@@ -11,6 +12,15 @@ class TutorialScreen extends StatefulWidget {
 }
 
 class _TutorialScreenState extends State<TutorialScreen> {
+  void _onEnterAppTap() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const MainNavigaionScreen(),
+      ),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -92,20 +102,19 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-          child: Container(
+          child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: Sizes.size20,
+              vertical: Sizes.size24,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const TabPageSelector(
                   selectedColor: Colors.black38,
                 ),
                 Gaps.v20,
                 CupertinoButton(
-                  onPressed: () {},
+                  onPressed: _onEnterAppTap,
                   color: Theme.of(context).primaryColor,
                   child: const Text("Enter the app!"),
                 ),
