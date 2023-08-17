@@ -107,9 +107,9 @@ class _VideoPostState extends State<VideoPost>
           ),
           Positioned.fill(
             child: IgnorePointer(
-              child: Transform.scale(
-                scale: _animationController.value,
-                child: Center(
+              child: Center(
+                child: Transform.scale(
+                  scale: _animationController.value,
                   child: AnimatedOpacity(
                     opacity: _isPaused ? 1 : 0,
                     duration: _animationDuration,
