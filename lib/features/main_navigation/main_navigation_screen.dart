@@ -4,6 +4,7 @@ import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/main_navigation/widgets/nav_tab.dart';
 import 'package:street_workout/features/main_navigation/widgets/post_video_button.dart';
+import 'package:street_workout/features/videos/video_timeline_screen.dart';
 
 class MainNavigaionScreen extends StatefulWidget {
   const MainNavigaionScreen({super.key});
@@ -14,34 +15,6 @@ class MainNavigaionScreen extends StatefulWidget {
 
 class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
   int _selectedIndex = 0;
-
-  final screens = [
-    const Center(
-      child: Text(
-        "Home",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-    const Center(
-      child: Text(
-        "Discover",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-    Container(),
-    const Center(
-      child: Text(
-        "Inbox",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-    const Center(
-      child: Text(
-        "Profile",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-  ];
 
   void _onTap(int index) {
     setState(() {
@@ -69,19 +42,19 @@ class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
         children: [
           Offstage(
             offstage: _selectedIndex != 0,
-            child: screens.elementAt(_selectedIndex),
+            child: const VideoTimelineScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: screens.elementAt(_selectedIndex),
+            child: Container(),
           ),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: screens.elementAt(_selectedIndex),
+            child: Container(),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
-            child: screens.elementAt(_selectedIndex),
+            child: Container(),
           ),
         ],
       ),
