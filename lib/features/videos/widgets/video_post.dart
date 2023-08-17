@@ -15,7 +15,7 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost> {
   final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/IMG_8916.MOV");
+      VideoPlayerController.asset("assets/videos/test3.mp4");
 
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
