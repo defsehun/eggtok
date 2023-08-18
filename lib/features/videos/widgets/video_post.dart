@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/videos/widgets/video_bgm_info.dart';
 import 'package:street_workout/features/videos/widgets/video_button.dart';
 import 'package:street_workout/features/videos/widgets/video_comments.dart';
+import 'package:street_workout/features/videos/widgets/video_tag_info.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -30,6 +32,17 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
 
   bool _isPaused = false;
+
+  final List<String> tags = [
+    "sans",
+    "dua lipa",
+    "Levitating!!!!",
+    "Levitating",
+    "두아",
+    "concert",
+  ];
+
+  final String bgmInfo = 'Dua Lipa - Levitating (2020)';
 
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
@@ -114,7 +127,7 @@ class _VideoPostState extends State<VideoPost>
                     aspectRatio: _videoPlayerController.value.aspectRatio,
                     child: Stack(
                       alignment: Alignment.bottomCenter,
-                      children: <Widget>[
+                      children: [
                         VideoPlayer(_videoPlayerController),
                         VideoProgressIndicator(
                           _videoPlayerController,
@@ -154,29 +167,40 @@ class _VideoPostState extends State<VideoPost>
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 20,
             left: 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "@iSehun",
-                  style: TextStyle(
-                    fontSize: Sizes.size18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "@iSehun",
+                    style: TextStyle(
+                      fontSize: Sizes.size18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Gaps.v10,
-                Text(
-                  "두아 리파 1열 관람!!",
-                  style: TextStyle(
-                    fontSize: Sizes.size16,
-                    color: Colors.white,
+                  Gaps.v10,
+                  const Text(
+                    "두아 리파 1열 관람!!",
+                    style: TextStyle(
+                      fontSize: Sizes.size16,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
+                  Gaps.v10,
+                  VideoTagInfo(desc: tags.map((tag) => '#$tag').join(', ')),
+                  Gaps.v10,
+                  SizedBox(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width - 100,
+                    child: VideoBgmInfo(bgmInfo: bgmInfo),
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -197,7 +221,7 @@ class _VideoPostState extends State<VideoPost>
                   icon: FontAwesomeIcons.solidHeart,
                   text: "2.9M",
                 ),
-                Gaps.v24,
+                Gaps.v10,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
                   child: const VideoButton(
@@ -205,7 +229,7 @@ class _VideoPostState extends State<VideoPost>
                     text: "33K",
                   ),
                 ),
-                Gaps.v24,
+                Gaps.v10,
                 const VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
