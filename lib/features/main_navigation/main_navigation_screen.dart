@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/discover/discover_screen.dart';
 import 'package:street_workout/features/main_navigation/widgets/nav_tab.dart';
 import 'package:street_workout/features/main_navigation/widgets/post_video_button.dart';
 import 'package:street_workout/features/videos/video_timeline_screen.dart';
@@ -14,7 +15,7 @@ class MainNavigaionScreen extends StatefulWidget {
 }
 
 class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onTap(int index) {
     setState(() {
@@ -48,7 +49,7 @@ class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: Container(),
+            child: const DiscoverScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 3,

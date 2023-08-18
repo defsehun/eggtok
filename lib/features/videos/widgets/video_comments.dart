@@ -73,7 +73,7 @@ class _VideoCommentsState extends State<VideoComments> {
                     children: [
                       const CircleAvatar(
                         radius: Sizes.size18,
-                        child: Text("SH"),
+                        child: Text("S"),
                       ),
                       Gaps.h10,
                       Expanded(
@@ -131,7 +131,7 @@ class _VideoCommentsState extends State<VideoComments> {
                         radius: 18,
                         backgroundColor: Colors.grey.shade500,
                         foregroundColor: Colors.white,
-                        child: const Text("SH"),
+                        child: const Text("S"),
                       ),
                       Gaps.h10,
                       Expanded(

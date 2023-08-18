@@ -130,18 +130,15 @@ class _VideoPostState extends State<VideoPost>
         children: [
           Positioned.fill(
             child: _videoPlayerController.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: _videoPlayerController.value.aspectRatio,
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        VideoPlayer(_videoPlayerController),
-                        VideoProgressIndicator(
-                          _videoPlayerController,
-                          allowScrubbing: true,
-                        ),
-                      ],
-                    ),
+                ? Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      VideoPlayer(_videoPlayerController),
+                      VideoProgressIndicator(
+                        _videoPlayerController,
+                        allowScrubbing: true,
+                      ),
+                    ],
                   )
                 : Container(color: Colors.black),
           ),
@@ -221,7 +218,7 @@ class _VideoPostState extends State<VideoPost>
                   foregroundColor: Colors.white,
                   foregroundImage: NetworkImage(
                       "https://avatars.githubusercontent.com/u/17242597?v=4"),
-                  child: Text("SH"),
+                  child: Text("S"),
                 ),
                 Gaps.v24,
                 const VideoButton(
