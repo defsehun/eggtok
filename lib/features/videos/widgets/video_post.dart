@@ -110,10 +110,20 @@ class _VideoPostState extends State<VideoPost>
         children: [
           Positioned.fill(
             child: _videoPlayerController.value.isInitialized
-                ? VideoPlayer(_videoPlayerController)
-                : Container(
-                    color: Colors.black,
-                  ),
+                ? AspectRatio(
+                    aspectRatio: _videoPlayerController.value.aspectRatio,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        VideoPlayer(_videoPlayerController),
+                        VideoProgressIndicator(
+                          _videoPlayerController,
+                          allowScrubbing: true,
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(color: Colors.black),
           ),
           Positioned.fill(
             child: GestureDetector(
