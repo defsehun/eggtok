@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/inbox/activity_screen.dart';
+import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
 
 void main() {
   runApp(const StreetWorkoutApp());
@@ -36,8 +36,7 @@ class StreetWorkoutApp extends StatelessWidget {
         ),
       ),
       // home: const SignUpScreen(),
-      //home: const MainNavigaionScreen(),
-      home: const ActivityScreen(),
+      home: const MainNavigaionScreen(),
     );
   }
 }
