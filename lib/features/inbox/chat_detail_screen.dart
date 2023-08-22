@@ -193,19 +193,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     Gaps.h12,
                     GestureDetector(
                       onTap: _stopWriting,
-                      child: Container(
-                        height: Sizes.size36,
-                        width: Sizes.size36,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Center(
-                          child: FaIcon(
-                            FontAwesomeIcons.arrowUp,
-                            color: Colors.white,
-                          ),
-                        ),
+                      child: FaIcon(
+                        FontAwesomeIcons.circleArrowUp,
+                        size: Sizes.size30,
+                        color: _isWriting
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey.shade400,
                       ),
                     ),
                   ],
