@@ -29,7 +29,7 @@ class NavTab extends StatelessWidget {
           color: selectIndex == 0 ? Colors.black : Colors.white,
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 100),
-            opacity: isSelected ? 1 : 0.3,
+            opacity: isSelected ? 1 : 0.4,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
