@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/users/widgets/user_count.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -64,24 +65,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        const Text(
-                          "97",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Sizes.size18,
-                          ),
-                        ),
-                        Gaps.v3,
-                        Text(
-                          "Following",
-                          style: TextStyle(
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    const UserCount(count: "97", countName: "Following"),
                     VerticalDivider(
                       width: Sizes.size30,
                       thickness: Sizes.size1,
@@ -89,24 +73,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       indent: Sizes.size14,
                       endIndent: Sizes.size14,
                     ),
-                    Column(
-                      children: [
-                        const Text(
-                          "10M",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Sizes.size18,
-                          ),
-                        ),
-                        Gaps.v3,
-                        Text(
-                          "Followers",
-                          style: TextStyle(
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    const UserCount(count: "10M", countName: "Followers"),
                     VerticalDivider(
                       width: Sizes.size30,
                       thickness: Sizes.size1,
@@ -114,24 +81,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       indent: Sizes.size14,
                       endIndent: Sizes.size14,
                     ),
-                    Column(
-                      children: [
-                        const Text(
-                          "194.3M",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Sizes.size18,
-                          ),
-                        ),
-                        Gaps.v3,
-                        Text(
-                          "Likes",
-                          style: TextStyle(
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    const UserCount(count: "194.3M", countName: "Likes"),
                   ],
                 ),
               ),
