@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/users/widgets/persistent_tab_bar.dart';
+import 'package:street_workout/features/users/widgets/user_action_button.dart';
 import 'package:street_workout/features/users/widgets/user_count.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -13,13 +14,11 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  final String _placeholder = "assets/images/placeholder.jpg";
   final String _avatarImageUrl =
       "https://cdn.buymeacoffee.com/uploads/profile_pictures/2023/07/jgSw6oRTsa7Ak5CM.jpeg@300w_0e.webp";
-
-  final String _thumImageUrl =
-      "https://nebbia.fitness/vendors/phpThumb/phpThumb.php?w=490&h=740&sia=dvojvrstvova_sportova_podprsenka_flex_241_blue_005.jpg&src=/uploads/47/products/780/dvojvrstvova_sportova_podprsenka_flex_241_blue_005.jpg&far=1";
-
   final double _aspectRatio = 9 / 12;
+  final double gridMarkerGap = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -96,29 +95,40 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       ),
                     ),
                     Gaps.v14,
-                    FractionallySizedBox(
-                      widthFactor: 0.33,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: Sizes.size10,
-                        ),
-                        decoration: BoxDecoration(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        UserActionButton(
+                          onTap: () {},
+                          width: Sizes.size96 + Sizes.size48,
                           color: Theme.of(context).primaryColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(
-                              Sizes.size4,
+                          content: const Text(
+                            "Follow",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        child: const Text(
-                          "Follow",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                        Gaps.h6,
+                        UserActionButton(
+                          width: Sizes.size48,
+                          color: Colors.grey.shade200,
+                          content: const FaIcon(
+                            FontAwesomeIcons.paperPlane,
                           ),
-                          textAlign: TextAlign.center,
                         ),
-                      ),
+                        Gaps.h6,
+                        UserActionButton(
+                          width: Sizes.size48,
+                          color: Colors.grey.shade200,
+                          content: const FaIcon(
+                            FontAwesomeIcons.caretDown,
+                            size: Sizes.size20,
+                          ),
+                        ),
+                      ],
                     ),
                     Gaps.v14,
                     const Padding(
@@ -160,8 +170,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           body: TabBarView(
             children: [
               GridView.builder(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
                 itemCount: 20,
                 padding: EdgeInsets.zero,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -170,15 +178,64 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   mainAxisSpacing: Sizes.size2,
                   childAspectRatio: _aspectRatio,
                 ),
-                itemBuilder: (context, index) => Column(
+                itemBuilder: (context, index) => Stack(
                   children: [
                     AspectRatio(
                       aspectRatio: _aspectRatio,
                       child: FadeInImage.assetNetwork(
                         placeholderFit: BoxFit.cover,
                         fit: BoxFit.cover,
-                        placeholder: "assets/images/placeholder.jpg",
-                        image: _thumImageUrl,
+                        placeholder: _placeholder,
+                        image: "https://source.unsplash.com/random/?$index",
+                      ),
+                    ),
+                    if (index < 2)
+                      Positioned(
+                        // top left
+                        top: gridMarkerGap,
+                        left: gridMarkerGap,
+                        child: Container(
+                          padding: const EdgeInsets.all(Sizes.size2),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                          child: const Text(
+                            "Pinned",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (index == 3)
+                      Positioned(
+                        top: gridMarkerGap,
+                        right: gridMarkerGap,
+                        child: const FaIcon(
+                          FontAwesomeIcons.image,
+                          color: Colors.white,
+                          size: Sizes.size16,
+                        ),
+                      ),
+                    Positioned(
+                      bottom: gridMarkerGap,
+                      left: gridMarkerGap,
+                      child: Row(
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.play,
+                            color: Colors.white,
+                            size: Sizes.size14,
+                          ),
+                          Gaps.h4,
+                          Text(
+                            '${"${index * 3.7 - (index * 1.4)}".substring(0, 3)} ${index % 2 == 1 ? 'M' : 'K'}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
