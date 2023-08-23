@@ -77,17 +77,18 @@ class _VideoPostState extends State<VideoPost>
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
-    }
-
-    if (info.visibleFraction == 0 && _videoPlayerController.value.isPlaying) {
+    } else if (info.visibleFraction == 0 &&
+        _videoPlayerController.value.isPlaying) {
       _onTogglePause();
     } else if (info.visibleFraction == 1 &&
         !_videoPlayerController.value.isPlaying) {
