@@ -15,7 +15,7 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  final String _placeholder = "assets/images/placeholder.jpg";
+  final String _placeholder = "assets/images/placeholder_.jpg";
   final String _imageUrl = "https://source.unsplash.com/random/?";
   final String _avatarImageUrl =
       "https://cdn.buymeacoffee.com/uploads/profile_pictures/2023/07/jgSw6oRTsa7Ak5CM.jpeg@300w_0e.webp";

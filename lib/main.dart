@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const StreetWorkoutApp());
 }
 
@@ -13,6 +16,7 @@ class StreetWorkoutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Street Workout',
       theme: ThemeData(
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -35,7 +39,7 @@ class StreetWorkoutApp extends StatelessWidget {
           ),
         ),
       ),
-      // home: const SignUpScreen(),
+      //home: const SignUpScreen(),
       home: const MainNavigaionScreen(),
     );
   }
