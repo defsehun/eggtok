@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
@@ -25,13 +26,13 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/test3.mp4");
-  final Duration _animationDuration = const Duration(milliseconds: 200);
+  late final VideoPlayerController _videoPlayerController;
 
+  final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
 
   bool _isPaused = false;
+  bool _isMuted = false;
 
   final List<String> tags = [
     "sans",
@@ -54,8 +55,14 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    _videoPlayerController =
+        VideoPlayerController.asset("assets/videos/test3.mp4");
     await _videoPlayerController.initialize();
     _videoPlayerController.setLooping(true);
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+      _isMuted = true;
+    }
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
@@ -120,6 +127,12 @@ class _VideoPostState extends State<VideoPost>
       builder: (context) => const VideoComments(),
     );
     _onTogglePause();
+  }
+
+  void _onMuteTap(BuildContext context) async {
+    await _videoPlayerController.setVolume(_isMuted ? 1 : 0);
+    _isMuted = !_isMuted;
+    setState(() {});
   }
 
   @override
@@ -209,8 +222,8 @@ class _VideoPostState extends State<VideoPost>
             ),
           ),
           Positioned(
-            bottom: 20,
-            right: 10,
+            bottom: Sizes.size96,
+            right: Sizes.size20,
             child: Column(
               children: [
                 const CircleAvatar(
@@ -227,17 +240,22 @@ class _VideoPostState extends State<VideoPost>
                   text: "2.9M",
                 ),
                 Gaps.v10,
-                GestureDetector(
-                  onTap: () => _onCommentsTap(context),
-                  child: const VideoButton(
-                    icon: FontAwesomeIcons.solidComment,
-                    text: "33K",
-                  ),
+                VideoButton(
+                  onTap: _onCommentsTap,
+                  icon: FontAwesomeIcons.solidComment,
+                  text: "33K",
                 ),
                 Gaps.v10,
                 const VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
+                ),
+                Gaps.v10,
+                VideoButton(
+                  onTap: _onMuteTap,
+                  icon: _isMuted
+                      ? FontAwesomeIcons.volumeXmark
+                      : FontAwesomeIcons.volumeHigh,
                 ),
               ],
             ),
