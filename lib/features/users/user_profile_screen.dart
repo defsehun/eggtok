@@ -15,6 +15,7 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final String _placeholder = "assets/images/placeholder.jpg";
+  final String _imageUrl = "https://source.unsplash.com/random/?";
   final String _avatarImageUrl =
       "https://cdn.buymeacoffee.com/uploads/profile_pictures/2023/07/jgSw6oRTsa7Ak5CM.jpeg@300w_0e.webp";
   final double _aspectRatio = 9 / 12;
@@ -186,7 +187,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         placeholderFit: BoxFit.cover,
                         fit: BoxFit.cover,
                         placeholder: _placeholder,
-                        image: "https://source.unsplash.com/random/?$index",
+                        image: "$_imageUrl$index",
                       ),
                     ),
                     if (index < 2)

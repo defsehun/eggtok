@@ -31,6 +31,7 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
+  final String _imageUrl = "https://source.unsplash.com/random/?";
   final TextEditingController _textEditingController =
       TextEditingController(text: "Street workout");
 
@@ -112,8 +113,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         placeholderFit: BoxFit.cover,
                         fit: BoxFit.cover,
                         placeholder: "assets/images/placeholder.jpg",
-                        image:
-                            "https://media1.popsugar-assets.com/files/thumbor/wruJq-MmeXO4oeG9jYPvAz2njzQ=/fit-in/1584x2230/filters:format_auto():upscale()/2021/03/14/085/n/1922564/34429b9cf1e7f938_GettyImages-1307104446.jpg",
+                        image: "$_imageUrl$index",
                       ),
                     ),
                   ),
