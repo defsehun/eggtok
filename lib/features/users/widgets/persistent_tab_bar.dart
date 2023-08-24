@@ -10,7 +10,10 @@ class PersistentTabBar extends SliverPersistentHeaderDelegate {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.symmetric(
-          horizontal: BorderSide(color: Colors.grey.shade200, width: 1),
+          horizontal: BorderSide(
+            color: Colors.grey.shade200,
+            width: 1,
+          ),
         ),
       ),
       child: const TabBar(

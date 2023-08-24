@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/features/videos/widgets/video_post.dart';
 
 class VideoTimelineScreen extends StatefulWidget {
@@ -61,8 +62,17 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
         scrollDirection: Axis.vertical,
         onPageChanged: _onPageChanged,
         itemCount: _itemCount,
-        itemBuilder: (context, index) =>
-            VideoPost(onVideoFinished: _onVideoFinished, index: index),
+        itemBuilder: (context, index) => Center(
+          child: Container(
+            constraints: const BoxConstraints(
+              maxWidth: Breakpoints.lg,
+            ),
+            child: VideoPost(
+              onVideoFinished: _onVideoFinished,
+              index: index,
+            ),
+          ),
+        ),
       ),
     );
   }

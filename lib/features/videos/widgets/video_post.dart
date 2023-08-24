@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/videos/widgets/video_bgm_info.dart';
@@ -124,7 +125,15 @@ class _VideoPostState extends State<VideoPost>
       isScrollControlled: true,
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => const VideoComments(),
+      builder: (context) => Center(
+        heightFactor: 1.0,
+        child: Container(
+          constraints: const BoxConstraints(
+            maxWidth: Breakpoints.lg,
+          ),
+          child: const VideoComments(),
+        ),
+      ),
     );
     _onTogglePause();
   }

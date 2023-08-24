@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/inbox/chat_detail_screen.dart';
 
@@ -96,19 +97,26 @@ class _ChatsScreenState extends State<ChatsScreen> {
           ),
         ],
       ),
-      body: AnimatedList(
-        key: _key,
-        padding: const EdgeInsets.symmetric(vertical: Sizes.size10),
-        itemBuilder: (context, index, animation) {
-          return FadeTransition(
-            key: UniqueKey(),
-            opacity: animation,
-            child: SizeTransition(
-              sizeFactor: animation,
-              child: _makeTile(index),
-            ),
-          );
-        },
+      body: Center(
+        child: Container(
+          constraints: const BoxConstraints(
+            maxWidth: Breakpoints.md,
+          ),
+          child: AnimatedList(
+            key: _key,
+            padding: const EdgeInsets.symmetric(vertical: Sizes.size10),
+            itemBuilder: (context, index, animation) {
+              return FadeTransition(
+                key: UniqueKey(),
+                opacity: animation,
+                child: SizeTransition(
+                  sizeFactor: animation,
+                  child: _makeTile(index),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
