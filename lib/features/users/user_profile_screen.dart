@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/settings/settings_screen.dart';
 import 'package:street_workout/features/users/widgets/persistent_tab_bar.dart';
 import 'package:street_workout/features/users/widgets/user_action_button.dart';
 import 'package:street_workout/features/users/widgets/user_count.dart';
@@ -21,6 +22,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final double _aspectRatio = 9 / 12;
   final double gridMarkerGap = 5;
 
+  void _onSettingsPressed() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,7 +42,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 title: const Text("Sans"),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: _onSettingsPressed,
                     icon: const FaIcon(
                       FontAwesomeIcons.gear,
                       size: Sizes.size20,
