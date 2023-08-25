@@ -5,6 +5,7 @@ import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/authentication/login_screen.dart';
 import 'package:street_workout/features/authentication/username_screen.dart';
 import 'package:street_workout/features/authentication/widgets/auth_button.dart';
+import 'package:street_workout/utils.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -90,10 +91,13 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
-            elevation: 2,
+          bottomNavigationBar: Container(
+            color: isDarkMode(context) ? null : Colors.grey.shade50,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
+              padding: const EdgeInsets.only(
+                top: Sizes.size32,
+                bottom: Sizes.size64,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

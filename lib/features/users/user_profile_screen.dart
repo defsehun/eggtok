@@ -7,6 +7,7 @@ import 'package:street_workout/features/settings/settings_screen.dart';
 import 'package:street_workout/features/users/widgets/persistent_tab_bar.dart';
 import 'package:street_workout/features/users/widgets/user_action_button.dart';
 import 'package:street_workout/features/users/widgets/user_count.dart';
+import 'package:street_workout/utils.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -34,7 +35,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
-
+    final isDark = isDarkMode(context);
     return SafeArea(
       child: DefaultTabController(
         length: 2,
@@ -135,18 +136,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             Gaps.h6,
                             UserActionButton(
                               width: Sizes.size48,
-                              color: Colors.grey.shade200,
-                              content: const FaIcon(
+                              color: isDark
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                              content: const Icon(
                                 FontAwesomeIcons.paperPlane,
                               ),
                             ),
                             Gaps.h6,
                             UserActionButton(
                               width: Sizes.size48,
-                              color: Colors.grey.shade200,
-                              content: const FaIcon(
+                              color: isDark
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                              content: const Icon(
                                 FontAwesomeIcons.caretDown,
-                                size: Sizes.size20,
                               ),
                             ),
                           ],

@@ -17,6 +17,7 @@ class UserCount extends StatelessWidget {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: Sizes.size18,
+            height: 1,
           ),
         ),
         Gaps.v3,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
+import 'package:street_workout/features/authentication/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class StreetWorkoutApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: ThemeData(
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        //useMaterial3: true,
+        useMaterial3: true,
         textTheme: Typography.blackMountainView,
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
@@ -34,6 +34,7 @@ class StreetWorkoutApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
           elevation: 0,
           titleTextStyle: TextStyle(
             color: Colors.black,
@@ -49,14 +50,13 @@ class StreetWorkoutApp extends StatelessWidget {
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey.shade500,
         ),
-        iconTheme: IconThemeData(
-          color: Colors.grey.shade900,
-        ),
         listTileTheme: const ListTileThemeData(
           iconColor: Colors.black,
         ),
       ),
       darkTheme: ThemeData(
+        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
         textTheme: Typography.whiteMountainView,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
@@ -65,23 +65,36 @@ class StreetWorkoutApp extends StatelessWidget {
           cursorColor: Color(0xFFE9435A),
         ),
         splashColor: Colors.transparent,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
+          foregroundColor: Colors.white,
           backgroundColor: Colors.black,
+          surfaceTintColor: Colors.black,
+          elevation: 0,
+          titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: Sizes.size18,
+            fontWeight: FontWeight.w600,
+          ),
+          actionsIconTheme: IconThemeData(
+            color: Colors.grey.shade100,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.grey.shade100,
+          ),
         ),
         bottomAppBarTheme: BottomAppBarTheme(
           color: Colors.grey.shade900,
         ),
-        tabBarTheme: const TabBarTheme(
+        tabBarTheme: TabBarTheme(
           indicatorColor: Colors.white,
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.grey.shade500,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.grey.shade700,
         ),
         listTileTheme: const ListTileThemeData(
           iconColor: Colors.white,
         ),
       ),
-      home: const MainNavigaionScreen(),
+      home: const SignUpScreen(),
     );
   }
 }
