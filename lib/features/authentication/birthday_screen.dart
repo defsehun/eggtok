@@ -75,9 +75,6 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             Gaps.v16,
             TextField(
               enabled: false,
-              // style: const TextStyle(
-              //   color: Colors.black,
-              // ),
               controller: _birthdayController,
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(

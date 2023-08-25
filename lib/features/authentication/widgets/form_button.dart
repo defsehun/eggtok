@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/utils.dart';
 
 class FormButton extends StatelessWidget {
   const FormButton({
@@ -21,8 +22,11 @@ class FormButton extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Sizes.size5),
-          color:
-              disabled ? Colors.grey.shade300 : Theme.of(context).primaryColor,
+          color: disabled
+              ? isDarkMode(context)
+                  ? Colors.grey.shade900
+                  : Colors.grey.shade300
+              : Theme.of(context).primaryColor,
         ),
         duration: const Duration(milliseconds: 300),
         child: AnimatedDefaultTextStyle(

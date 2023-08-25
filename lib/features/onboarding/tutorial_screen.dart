@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
+import 'package:street_workout/utils.dart';
 
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({super.key});
@@ -102,6 +103,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
+          color: isDarkMode(context) ? Colors.black : Colors.white,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: Sizes.size24,
@@ -110,7 +112,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const TabPageSelector(
-                  selectedColor: Colors.black38,
+                  selectedColor: Colors.grey,
+                  borderStyle: BorderStyle.solid,
                 ),
                 Gaps.v20,
                 CupertinoButton(

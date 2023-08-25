@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/onboarding/tutorial_screen.dart';
+import 'package:street_workout/features/onboarding/tutorial_animated_screen.dart';
 import 'package:street_workout/features/onboarding/widgets/interest_button.dart';
 
 const interests = [
@@ -85,7 +85,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const TutorialScreen(),
+        builder: (context) => const TutorialAnimatedScreen(),
       ),
     );
   }

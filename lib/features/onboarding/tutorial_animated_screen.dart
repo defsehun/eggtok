@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
+import 'package:street_workout/utils.dart';
 
 enum Direction { right, left }
 
@@ -115,6 +116,7 @@ class _TutorialAnimatedScreenState extends State<TutorialAnimatedScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
+          color: isDarkMode(context) ? Colors.black : Colors.white,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: Sizes.size24,
