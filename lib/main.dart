@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/main_navigation/main_navigation_screen.dart';
+import 'package:street_workout/features/authentication/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +18,13 @@ class StreetWorkoutApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Street Workout',
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         //useMaterial3: true,
+        brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
+        bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade50),
         primaryColor: const Color(0xFFE9435A),
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFE9435A),
@@ -39,8 +42,23 @@ class StreetWorkoutApp extends StatelessWidget {
           ),
         ),
       ),
-      //home: const SignUpScreen(),
-      home: const MainNavigaionScreen(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade900),
+        primaryColor: const Color(0xFFE9435A),
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.black,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: Sizes.size18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      home: const SignUpScreen(),
     );
   }
 }
