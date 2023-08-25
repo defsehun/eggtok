@@ -8,6 +8,7 @@ import 'package:street_workout/features/main_navigation/widgets/nav_tab.dart';
 import 'package:street_workout/features/main_navigation/widgets/post_video_button.dart';
 import 'package:street_workout/features/users/user_profile_screen.dart';
 import 'package:street_workout/features/videos/video_timeline_screen.dart';
+import 'package:street_workout/utils.dart';
 
 class MainNavigaionScreen extends StatefulWidget {
   const MainNavigaionScreen({super.key});
@@ -40,9 +41,11 @@ class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
+      backgroundColor:
+          _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
       body: Stack(
         children: [
           Offstage(
@@ -64,7 +67,7 @@ class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: _selectedIndex == 0 ? Colors.black : Colors.white,
+        color: _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(

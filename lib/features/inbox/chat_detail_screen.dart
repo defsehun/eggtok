@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/utils.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   const ChatDetailScreen({super.key});
@@ -29,6 +30,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -54,7 +56,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   decoration: BoxDecoration(
                     color: Colors.green,
                     border: Border.all(
-                      color: Colors.white,
+                      color: isDark ? Colors.black : Colors.white,
                       width: Sizes.size3,
                     ),
                     borderRadius: BorderRadius.circular(Sizes.size24),
@@ -81,13 +83,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             children: [
               FaIcon(
                 FontAwesomeIcons.flag,
-                color: Colors.black,
                 size: Sizes.size20,
               ),
               Gaps.h32,
               FaIcon(
                 FontAwesomeIcons.ellipsis,
-                color: Colors.black,
                 size: Sizes.size20,
               ),
             ],
@@ -173,7 +173,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   vertical: Sizes.size2,
                                   horizontal: Sizes.size12,
@@ -188,7 +187,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                       Gaps.h10,
                                       FaIcon(
                                         FontAwesomeIcons.faceSmile,
-                                        color: Colors.grey.shade900,
+                                        color:
+                                            Theme.of(context).iconTheme.color,
                                       ),
                                     ],
                                   ),

@@ -41,17 +41,45 @@ class StreetWorkoutApp extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade50),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade100,
+        ),
+        tabBarTheme: TabBarTheme(
+          indicatorColor: Colors.black,
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.grey.shade500,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.grey.shade900,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.black,
+        ),
       ),
       darkTheme: ThemeData(
         textTheme: Typography.whiteMountainView,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
         primaryColor: const Color(0xFFE9435A),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFE9435A),
+        ),
+        splashColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
         ),
-        bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade900),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade900,
+        ),
+        tabBarTheme: const TabBarTheme(
+          indicatorColor: Colors.white,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.grey.shade500,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.white,
+        ),
       ),
       home: const MainNavigaionScreen(),
     );
