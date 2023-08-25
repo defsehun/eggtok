@@ -29,12 +29,9 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               Gaps.v80,
-              const Text(
+              Text(
                 "Login to for SANS",
-                style: TextStyle(
-                  fontSize: Sizes.size24,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               Gaps.v20,
               const Opacity(
@@ -75,13 +72,10 @@ class LoginScreen extends StatelessWidget {
               Gaps.h5,
               GestureDetector(
                 onTap: () => _onSignUpTap(context),
-                child: Text(
-                  "Sign up",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
+                child: Text("Sign up",
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: Theme.of(context).primaryColor,
+                        )),
               ),
             ],
           ),

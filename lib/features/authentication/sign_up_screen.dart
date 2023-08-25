@@ -36,12 +36,9 @@ class SignUpScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Gaps.v80,
-                  const Text(
+                  Text(
                     "Sign up for SANS",
-                    style: TextStyle(
-                      fontSize: Sizes.size24,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Gaps.v20,
                   const Opacity(
@@ -103,10 +100,10 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () => _onLoginTap(context),
                     child: Text(
                       "Log in",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).primaryColor,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ],
