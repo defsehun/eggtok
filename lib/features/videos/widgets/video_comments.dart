@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/generated/l10n.dart';
 import 'package:street_workout/utils.dart';
 
 class VideoComments extends StatefulWidget {
@@ -44,7 +45,7 @@ class _VideoCommentsState extends State<VideoComments> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("222796 comments"),
+          title: Text(S.of(context).commentTitle(0, 0)),
           actions: [
             IconButton(
               onPressed: _onClosePressed,

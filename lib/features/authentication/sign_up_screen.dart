@@ -39,7 +39,7 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   Gaps.v80,
                   Text(
-                    S.of(context).signUpTilte('SANS'),
+                    S.of(context).signUpTitle('SANS', DateTime.now()),
                     style: const TextStyle(
                       fontSize: Sizes.size24,
                       fontWeight: FontWeight.w700,
@@ -49,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
                   Opacity(
                     opacity: 0.7,
                     child: Text(
-                      S.of(context).signUpSubTitle(200),
+                      S.of(context).signUpSubtitle(200),
                       style: const TextStyle(
                         fontSize: Sizes.size14,
                       ),

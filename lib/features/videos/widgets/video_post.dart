@@ -8,6 +8,7 @@ import 'package:street_workout/features/videos/widgets/video_bgm_info.dart';
 import 'package:street_workout/features/videos/widgets/video_button.dart';
 import 'package:street_workout/features/videos/widgets/video_comments.dart';
 import 'package:street_workout/features/videos/widgets/video_tag_info.dart';
+import 'package:street_workout/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -244,15 +245,15 @@ class _VideoPostState extends State<VideoPost>
                   child: Text("S"),
                 ),
                 Gaps.v24,
-                const VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: "2.9M",
+                  text: S.of(context).likeCount(29803400),
                 ),
                 Gaps.v10,
                 VideoButton(
                   onTap: _onCommentsTap,
                   icon: FontAwesomeIcons.solidComment,
-                  text: "33K",
+                  text: S.of(context).commentCount(332400),
                 ),
                 Gaps.v10,
                 const VideoButton(
