@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/authentication/sign_up_screen.dart';
-import 'package:flutter_gen/gen_l10n/intl_generated.dart';
+import 'package:street_workout/generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +17,20 @@ class StreetWorkoutApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    S.load(const Locale("en"));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Street Workout',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ko'),
+      ],
       themeMode: ThemeMode.system,
       theme: ThemeData(
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
