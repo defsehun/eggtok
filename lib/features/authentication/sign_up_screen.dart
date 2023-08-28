@@ -6,6 +6,7 @@ import 'package:street_workout/features/authentication/login_screen.dart';
 import 'package:street_workout/features/authentication/username_screen.dart';
 import 'package:street_workout/features/authentication/widgets/auth_button.dart';
 import 'package:street_workout/utils.dart';
+import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -37,9 +38,9 @@ class SignUpScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Gaps.v80,
-                  const Text(
-                    "Sign up for SANS",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.signUpTilte("SANS"),
+                    style: const TextStyle(
                       fontSize: Sizes.size24,
                       fontWeight: FontWeight.w700,
                     ),
