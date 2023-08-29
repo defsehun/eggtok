@@ -7,10 +7,11 @@ import 'package:street_workout/features/authentication/widgets/auth_button.dart'
 import 'package:street_workout/utils.dart';
 
 class LoginScreen extends StatelessWidget {
+  static String routName = '/login';
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop();
+    Navigator.of(context).pop('Hello!');
   }
 
   void _onEmailLoginTap(BuildContext context) {

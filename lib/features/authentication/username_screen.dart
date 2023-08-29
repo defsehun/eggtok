@@ -5,6 +5,7 @@ import 'package:street_workout/features/authentication/email_screen.dart';
 import 'package:street_workout/features/authentication/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
+  static String routName = '/username';
   const UsernameScreen({super.key});
 
   @override
@@ -34,10 +35,10 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
   void _onNextTap() {
     if (_username.isEmpty) return;
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const EmailScreen(),
-      ),
+    Navigator.pushNamed(
+      context,
+      EmailScreen.routName,
+      arguments: EmailScreenArgs(username: _username),
     );
   }
 
