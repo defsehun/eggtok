@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/authentication/login_screen.dart';
@@ -9,23 +10,18 @@ import 'package:street_workout/generated/l10n.dart';
 import 'package:street_workout/utils.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static String routName = '/';
+  static String routeURL = '/';
+  static String routeName = "signUp";
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) {
-    Navigator.of(context).pushNamed(LoginScreen.routName);
-    /* final result = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
-    if (kDebugMode) {
-      print(result);
-    } */
+    context.push(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    Navigator.of(context).pushNamed(UsernameScreen.routName);
+    context.pushNamed(UsernameScreen.routeName);
+    // context.goNamed("username_screen");
+
     /* Navigator.of(context).push(
       PageRouteBuilder(
           transitionDuration: const Duration(seconds: 1),

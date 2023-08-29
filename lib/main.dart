@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/authentication/email_screen.dart';
-import 'package:street_workout/features/authentication/login_screen.dart';
-import 'package:street_workout/features/authentication/sign_up_screen.dart';
-import 'package:street_workout/features/authentication/username_screen.dart';
 import 'package:street_workout/generated/l10n.dart';
+import 'package:street_workout/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +18,8 @@ class StreetWorkoutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // S.load(const Locale("en"));
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'Street Workout',
       localizationsDelegates: const [
@@ -110,13 +108,6 @@ class StreetWorkoutApp extends StatelessWidget {
           iconColor: Colors.white,
         ),
       ),
-      initialRoute: SignUpScreen.routName,
-      routes: {
-        SignUpScreen.routName: (context) => const SignUpScreen(),
-        LoginScreen.routName: (context) => const LoginScreen(),
-        UsernameScreen.routName: (context) => const UsernameScreen(),
-        EmailScreen.routName: (context) => const EmailScreen(),
-      },
     );
   }
 }
