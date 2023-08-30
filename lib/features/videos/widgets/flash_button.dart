@@ -32,7 +32,7 @@ class FlashButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      iconSize: Sizes.size40,
+      iconSize: Sizes.size30,
       color: currentMode == flashMode ? Colors.amber.shade200 : Colors.white,
       onPressed: () => onTap(flashMode),
       icon: Icon(
