@@ -8,6 +8,7 @@ import 'package:street_workout/features/inbox/inbox_screen.dart';
 import 'package:street_workout/common/widgets/main_navigation/widgets/nav_tab.dart';
 import 'package:street_workout/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:street_workout/features/users/user_profile_screen.dart';
+import 'package:street_workout/features/videos/video_recording_screen.dart';
 import 'package:street_workout/features/videos/video_timeline_screen.dart';
 import 'package:street_workout/utils.dart';
 
@@ -40,16 +41,7 @@ class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
   }
 
   void _onPostVideoButtonTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text("Record video"),
-          ),
-        ),
-        fullscreenDialog: true,
-      ),
-    );
+    context.pushNamed(VideoRecordingScreen.routeName);
   }
 
   @override

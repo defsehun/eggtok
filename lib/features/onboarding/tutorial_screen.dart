@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/common/widgets/main_navigation/main_navigation_screen.dart';
 import 'package:street_workout/utils.dart';
 
 class TutorialScreen extends StatefulWidget {
@@ -14,12 +14,7 @@ class TutorialScreen extends StatefulWidget {
 
 class _TutorialScreenState extends State<TutorialScreen> {
   void _onEnterAppTap() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => const MainNavigaionScreen(),
-      ),
-      (route) => false,
-    );
+    context.go("/home");
   }
 
   @override
