@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:street_workout/common/widgets/video_config/video_config.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
@@ -196,6 +197,19 @@ class _VideoPostState extends State<VideoPost>
             ),
           ),
           Positioned(
+            left: Sizes.size10,
+            top: Sizes.size40,
+            child: IconButton(
+              icon: FaIcon(
+                VideoConfigData.of(context).autoMute
+                    ? FontAwesomeIcons.volumeXmark
+                    : FontAwesomeIcons.volumeHigh,
+                color: Colors.white,
+              ),
+              onPressed: VideoConfigData.of(context).toggleMuted,
+            ),
+          ),
+          Positioned(
             bottom: 20,
             left: 10,
             child: SizedBox(
@@ -232,8 +246,8 @@ class _VideoPostState extends State<VideoPost>
             ),
           ),
           Positioned(
-            bottom: Sizes.size96,
-            right: Sizes.size20,
+            bottom: Sizes.size20,
+            right: Sizes.size10,
             child: Column(
               children: [
                 const CircleAvatar(
@@ -261,12 +275,12 @@ class _VideoPostState extends State<VideoPost>
                   text: "Share",
                 ),
                 Gaps.v10,
-                VideoButton(
+                /* VideoButton(
                   onTap: _onMuteTap,
                   icon: _isMuted
                       ? FontAwesomeIcons.volumeXmark
                       : FontAwesomeIcons.volumeHigh,
-                ),
+                ), */
               ],
             ),
           ),
