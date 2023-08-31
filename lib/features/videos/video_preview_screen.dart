@@ -67,9 +67,11 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
           if (!widget.isPicked)
             IconButton(
               onPressed: _saveToGallery,
-              icon: _savedVideo
-                  ? const FaIcon(FontAwesomeIcons.check)
-                  : const FaIcon(FontAwesomeIcons.download),
+              icon: FaIcon(
+                _savedVideo
+                    ? FontAwesomeIcons.check
+                    : FontAwesomeIcons.download,
+              ),
             ),
         ],
       ),

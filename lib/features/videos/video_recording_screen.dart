@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,16 +23,15 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   bool _hasPermission = false;
   bool _deniedPermissions = false;
   bool _isSelfieMode = false;
-  bool _prepareDispose = false;
 
-  late FlashMode _flashMode;
-  late CameraController _cameraController;
+  late final bool _noCamera = kDebugMode && Platform.isIOS;
 
   late final AnimationController _buttonAnimationController =
       AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 200),
   );
+
   late final AnimationController _progressAnimationController =
       AnimationController(
     vsync: this,
@@ -42,6 +44,50 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     begin: 1.0,
     end: 1.3,
   ).animate(_buttonAnimationController);
+
+  late FlashMode _flashMode;
+  late CameraController _cameraController;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!_noCamera) {
+      initPermissions();
+    } else {
+      setState(() {
+        _hasPermission = true;
+      });
+    }
+    WidgetsBinding.instance.addObserver(this);
+
+    _progressAnimationController.addListener(() {
+      setState(() {});
+    });
+    _progressAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _stopRecording();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _cameraController.dispose();
+    _buttonAnimationController.dispose();
+    _progressAnimationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_hasPermission) return;
+    if (!_cameraController.value.isInitialized) return;
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+    }
+  }
 
   Future<void> initCamera() async {
     final cameras = await availableCameras();
@@ -74,53 +120,17 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     if (!cameraDenied && !micDenied) {
       _hasPermission = true;
       await initCamera();
+      setState(() {});
     } else {
       _deniedPermissions = true;
       setState(() {});
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    initPermissions();
-    WidgetsBinding.instance.addObserver(this);
-
-    _progressAnimationController.addListener(() {
-      setState(() {});
-    });
-    _progressAnimationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _stopRecording();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _cameraController.dispose();
-    _buttonAnimationController.dispose();
-    _progressAnimationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (!_hasPermission || !_cameraController.value.isInitialized) return;
-
-    if (state == AppLifecycleState.paused) {
-      _prepareDispose = true;
-      setState(() {});
-      _cameraController.dispose();
-    } else if (state == AppLifecycleState.resumed) {
-      _prepareDispose = false;
-      initCamera();
-    }
-  }
-
   Future<void> _toggleSelfieMode() async {
     _isSelfieMode = !_isSelfieMode;
     await initCamera();
+    setState(() {});
   }
 
   Future<void> _setFlashMode(FlashMode newFlashMode) async {
@@ -165,6 +175,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     if (video == null) return;
 
     if (!mounted) return;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -184,7 +195,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       body: SizedBox(
         width: size.width,
         height: size.height,
-        child: !_hasPermission || !_cameraController.value.isInitialized
+        child: !_hasPermission
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -228,49 +239,51 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
             : Stack(
                 alignment: Alignment.center,
                 children: [
-                  if (!_prepareDispose) CameraPreview(_cameraController),
-                  Positioned(
-                    top: Sizes.size52,
-                    right: Sizes.size10,
-                    child: Column(
-                      children: [
-                        IconButton(
-                          iconSize: Sizes.size30,
-                          color: Colors.white,
-                          onPressed: _toggleSelfieMode,
-                          icon: const Icon(
-                            Icons.cameraswitch_rounded,
+                  if (!_noCamera && _cameraController.value.isInitialized)
+                    CameraPreview(_cameraController),
+                  if (!_noCamera)
+                    Positioned(
+                      top: Sizes.size52,
+                      right: Sizes.size10,
+                      child: Column(
+                        children: [
+                          IconButton(
+                            iconSize: Sizes.size30,
+                            color: Colors.white,
+                            onPressed: _toggleSelfieMode,
+                            icon: const Icon(
+                              Icons.cameraswitch_rounded,
+                            ),
                           ),
-                        ),
-                        if (!_isSelfieMode) ...[
-                          Gaps.v10,
-                          FlashButton(
-                            onTap: _setFlashMode,
-                            flashMode: FlashMode.off,
-                            currentMode: _flashMode,
-                          ),
-                          Gaps.v10,
-                          FlashButton(
-                            onTap: _setFlashMode,
-                            flashMode: FlashMode.always,
-                            currentMode: _flashMode,
-                          ),
-                          Gaps.v10,
-                          FlashButton(
-                            onTap: _setFlashMode,
-                            flashMode: FlashMode.auto,
-                            currentMode: _flashMode,
-                          ),
-                          Gaps.v10,
-                          FlashButton(
-                            onTap: _setFlashMode,
-                            flashMode: FlashMode.torch,
-                            currentMode: _flashMode,
-                          ),
+                          if (!_isSelfieMode) ...[
+                            Gaps.v10,
+                            FlashButton(
+                              onTap: _setFlashMode,
+                              flashMode: FlashMode.off,
+                              currentMode: _flashMode,
+                            ),
+                            Gaps.v10,
+                            FlashButton(
+                              onTap: _setFlashMode,
+                              flashMode: FlashMode.always,
+                              currentMode: _flashMode,
+                            ),
+                            Gaps.v10,
+                            FlashButton(
+                              onTap: _setFlashMode,
+                              flashMode: FlashMode.auto,
+                              currentMode: _flashMode,
+                            ),
+                            Gaps.v10,
+                            FlashButton(
+                              onTap: _setFlashMode,
+                              flashMode: FlashMode.torch,
+                              currentMode: _flashMode,
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
-                  ),
                   Positioned(
                     bottom: Sizes.size96,
                     width: size.width,
