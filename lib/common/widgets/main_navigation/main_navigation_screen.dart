@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/discover/discover_screen.dart';
 import 'package:street_workout/features/inbox/inbox_screen.dart';
-import 'package:street_workout/features/main_navigation/widgets/nav_tab.dart';
-import 'package:street_workout/features/main_navigation/widgets/post_video_button.dart';
+import 'package:street_workout/common/widgets/main_navigation/widgets/nav_tab.dart';
+import 'package:street_workout/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:street_workout/features/users/user_profile_screen.dart';
 import 'package:street_workout/features/videos/video_timeline_screen.dart';
 import 'package:street_workout/utils.dart';
 
 class MainNavigaionScreen extends StatefulWidget {
-  const MainNavigaionScreen({super.key});
+  static const String routeName = "mainNavigation";
+  final String tab;
+
+  const MainNavigaionScreen({super.key, required this.tab});
 
   @override
   State<MainNavigaionScreen> createState() => _MainNavigaionScreenState();
 }
 
 class _MainNavigaionScreenState extends State<MainNavigaionScreen> {
-  int _selectedIndex = 0;
+  final List<String> _tabs = [
+    "home",
+    "discover",
+    "xxxx",
+    "inbox",
+    "profile",
+  ];
+
+  late int _selectedIndex = _tabs.indexOf(widget.tab);
 
   void _onTap(int index) {
+    context.go("/${_tabs[index]}");
     setState(() {
       _selectedIndex = index;
     });
