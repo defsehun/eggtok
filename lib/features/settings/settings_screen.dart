@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:street_workout/common/widgets/video_config/video_config.dart';
 import 'package:street_workout/constants/breakpoint.dart';
+import 'package:street_workout/features/videos/view_models/playback_config_vm.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -38,12 +38,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: ListView(
             children: [
               SwitchListTile.adaptive(
-                value: context.watch<VideoConfig>().isMuted,
-                onChanged: (value) {
-                  context.read<VideoConfig>().toggleIsMuted();
-                },
-                title: const Text("Auto mute video"),
+                value: context.watch<PlaybackConfigViewModel>().muted,
+                onChanged: (value) =>
+                    context.read<PlaybackConfigViewModel>().setMuted(value),
+                title: const Text("Mute video"),
                 subtitle: const Text("Videos will be muted by default."),
+              ),
+              SwitchListTile.adaptive(
+                value: context.watch<PlaybackConfigViewModel>().autoplay,
+                onChanged: (value) =>
+                    context.read<PlaybackConfigViewModel>().setAutoplay(value),
+                title: const Text("Autoplay"),
+                subtitle: const Text("Videos will start playing automatically"),
               ),
               SwitchListTile.adaptive(
                 value: _notifications,

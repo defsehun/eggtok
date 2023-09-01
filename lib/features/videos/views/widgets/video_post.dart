@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:street_workout/common/widgets/video_config/video_config.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/videos/widgets/video_bgm_info.dart';
-import 'package:street_workout/features/videos/widgets/video_button.dart';
-import 'package:street_workout/features/videos/widgets/video_comments.dart';
-import 'package:street_workout/features/videos/widgets/video_tag_info.dart';
+import 'package:street_workout/features/videos/view_models/playback_config_vm.dart';
+import 'package:street_workout/features/videos/views/widgets/video_bgm_info.dart';
+import 'package:street_workout/features/videos/views/widgets/video_button.dart';
+import 'package:street_workout/features/videos/views/widgets/video_comments.dart';
+import 'package:street_workout/features/videos/views/widgets/video_tag_info.dart';
 import 'package:street_workout/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -60,11 +60,14 @@ class _VideoPostState extends State<VideoPost>
   void _initVideoPlayer() async {
     _videoPlayerController =
         VideoPlayerController.asset("assets/videos/test3.mp4");
+
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
+
     if (kIsWeb) {
       await _videoPlayerController.setVolume(0);
     }
+
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
@@ -81,6 +84,12 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+
+    context
+        .read<PlaybackConfigViewModel>()
+        .addListener(_onPlaybackConfigChanged);
+
+    _onPlaybackConfigChanged();
   }
 
   @override
@@ -90,12 +99,21 @@ class _VideoPostState extends State<VideoPost>
     super.dispose();
   }
 
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+    final muted = context.read<PlaybackConfigViewModel>().muted;
+    _videoPlayerController.setVolume(muted ? 0 : 1);
+  }
+
   void _onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      _videoPlayerController.play();
+      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
+      if (autoplay) {
+        _videoPlayerController.play();
+      }
     } else if (info.visibleFraction == 0 &&
         _videoPlayerController.value.isPlaying) {
       _onTogglePause();
@@ -194,13 +212,15 @@ class _VideoPostState extends State<VideoPost>
             top: Sizes.size40,
             child: IconButton(
               icon: FaIcon(
-                context.watch<VideoConfig>().isMuted
+                context.watch<PlaybackConfigViewModel>().muted
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
               onPressed: () {
-                context.read<VideoConfig>().toggleIsMuted();
+                context
+                    .read<PlaybackConfigViewModel>()
+                    .setMuted(!context.read<PlaybackConfigViewModel>().muted);
               },
             ),
           ),

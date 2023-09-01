@@ -7,7 +7,7 @@ import 'package:street_workout/features/inbox/activity_screen.dart';
 import 'package:street_workout/features/inbox/chat_detail_screen.dart';
 import 'package:street_workout/features/inbox/chats_screen.dart';
 import 'package:street_workout/features/onboarding/interests_screen.dart';
-import 'package:street_workout/features/videos/video_recording_screen.dart';
+import 'package:street_workout/features/videos/views/video_recording_screen.dart';
 
 final router = GoRouter(
   initialLocation: "/inbox",

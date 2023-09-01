@@ -8,8 +8,8 @@ import 'package:street_workout/features/inbox/inbox_screen.dart';
 import 'package:street_workout/common/widgets/main_navigation/widgets/nav_tab.dart';
 import 'package:street_workout/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:street_workout/features/users/user_profile_screen.dart';
-import 'package:street_workout/features/videos/video_recording_screen.dart';
-import 'package:street_workout/features/videos/video_timeline_screen.dart';
+import 'package:street_workout/features/videos/views/video_recording_screen.dart';
+import 'package:street_workout/features/videos/views/video_timeline_screen.dart';
 import 'package:street_workout/utils.dart';
 
 class MainNavigaionScreen extends StatefulWidget {

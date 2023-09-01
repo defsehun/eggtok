@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/breakpoint.dart';
-import 'package:street_workout/features/videos/widgets/video_post.dart';
+import 'package:street_workout/features/videos/views/widgets/video_post.dart';
 
 class VideoTimelineScreen extends StatefulWidget {
   const VideoTimelineScreen({super.key});
