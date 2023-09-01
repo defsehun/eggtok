@@ -35,8 +35,7 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
 
   bool _isPaused = false;
-  bool _autoMute = videoConfig.autoMute;
-  bool _isMuted = false;
+  bool _autoMute = videoConfig.value;
 
   final List<String> tags = [
     "sans",
@@ -65,7 +64,7 @@ class _VideoPostState extends State<VideoPost>
     await _videoPlayerController.setLooping(true);
     if (kIsWeb) {
       await _videoPlayerController.setVolume(0);
-      _isMuted = true;
+      videoConfig.value = true;
     }
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
@@ -84,10 +83,10 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
-    videoConfig.addListener(() {
-      setState(() {
-        _autoMute = videoConfig.autoMute;
-      });
+    videoConfig.addListener(() async {
+      _autoMute = videoConfig.value;
+      await _videoPlayerController.setVolume(_autoMute ? 0 : 1);
+      setState(() {});
     });
   }
 
@@ -145,12 +144,6 @@ class _VideoPostState extends State<VideoPost>
       ),
     );
     _onTogglePause();
-  }
-
-  void _onMuteTap(BuildContext context) async {
-    await _videoPlayerController.setVolume(_isMuted ? 1 : 0);
-    _isMuted = !_isMuted;
-    setState(() {});
   }
 
   @override
@@ -213,7 +206,9 @@ class _VideoPostState extends State<VideoPost>
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
-              onPressed: videoConfig.toggleAutoMute,
+              onPressed: () {
+                videoConfig.value = !videoConfig.value;
+              },
             ),
           ),
           Positioned(
@@ -281,13 +276,6 @@ class _VideoPostState extends State<VideoPost>
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 ),
-                Gaps.v10,
-                /* VideoButton(
-                  onTap: _onMuteTap,
-                  icon: _isMuted
-                      ? FontAwesomeIcons.volumeXmark
-                      : FontAwesomeIcons.volumeHigh,
-                ), */
               ],
             ),
           ),
