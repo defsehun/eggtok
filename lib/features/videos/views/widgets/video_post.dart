@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -64,10 +63,6 @@ class _VideoPostState extends State<VideoPost>
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
 
-    if (kIsWeb) {
-      await _videoPlayerController.setVolume(0);
-    }
-
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
@@ -89,7 +84,7 @@ class _VideoPostState extends State<VideoPost>
         .read<PlaybackConfigViewModel>()
         .addListener(_onPlaybackConfigChanged);
 
-    _onPlaybackConfigChanged();
+    _initMute();
   }
 
   @override
@@ -97,6 +92,14 @@ class _VideoPostState extends State<VideoPost>
     _videoPlayerController.dispose();
     _animationController.dispose();
     super.dispose();
+  }
+
+  void _initMute() {
+    // if (kIsWeb) {
+    //   _videoPlayerController.setVolume(0);
+    // }
+    final muted = context.read<PlaybackConfigViewModel>().muted;
+    _videoPlayerController.setVolume(muted ? 0 : 1);
   }
 
   void _onPlaybackConfigChanged() {
