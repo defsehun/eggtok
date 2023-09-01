@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:street_workout/common/widgets/video_config/video_config.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
@@ -35,7 +36,6 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
 
   bool _isPaused = false;
-  bool _autoMute = videoConfig.value;
 
   final List<String> tags = [
     "sans",
@@ -64,7 +64,6 @@ class _VideoPostState extends State<VideoPost>
     await _videoPlayerController.setLooping(true);
     if (kIsWeb) {
       await _videoPlayerController.setVolume(0);
-      videoConfig.value = true;
     }
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
@@ -82,12 +81,6 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
-
-    videoConfig.addListener(() async {
-      _autoMute = videoConfig.value;
-      await _videoPlayerController.setVolume(_autoMute ? 0 : 1);
-      setState(() {});
-    });
   }
 
   @override
@@ -201,13 +194,13 @@ class _VideoPostState extends State<VideoPost>
             top: Sizes.size40,
             child: IconButton(
               icon: FaIcon(
-                _autoMute
+                context.watch<VideoConfig>().isMuted
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
               onPressed: () {
-                videoConfig.value = !videoConfig.value;
+                context.read<VideoConfig>().toggleIsMuted();
               },
             ),
           ),
