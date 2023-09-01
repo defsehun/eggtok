@@ -80,10 +80,6 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
-    context
-        .read<PlaybackConfigViewModel>()
-        .addListener(_onPlaybackConfigChanged);
-
     _initMute();
   }
 
@@ -98,13 +94,13 @@ class _VideoPostState extends State<VideoPost>
     // if (kIsWeb) {
     //   _videoPlayerController.setVolume(0);
     // }
-    final muted = context.read<PlaybackConfigViewModel>().muted;
+    const muted = false;
     _videoPlayerController.setVolume(muted ? 0 : 1);
   }
 
   void _onPlaybackConfigChanged() {
     if (!mounted) return;
-    final muted = context.read<PlaybackConfigViewModel>().muted;
+    const muted = false;
     _videoPlayerController.setVolume(muted ? 0 : 1);
   }
 
@@ -113,8 +109,7 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
-      if (autoplay) {
+      if (false) {
         _videoPlayerController.play();
       }
     } else if (info.visibleFraction == 0 &&
@@ -214,17 +209,13 @@ class _VideoPostState extends State<VideoPost>
             left: Sizes.size10,
             top: Sizes.size40,
             child: IconButton(
-              icon: FaIcon(
-                context.watch<PlaybackConfigViewModel>().muted
+              icon: const FaIcon(
+                false
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
-              onPressed: () {
-                context
-                    .read<PlaybackConfigViewModel>()
-                    .setMuted(!context.read<PlaybackConfigViewModel>().muted);
-              },
+              onPressed: () {},
             ),
           ),
           Positioned(
