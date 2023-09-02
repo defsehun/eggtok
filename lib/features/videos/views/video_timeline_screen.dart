@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:street_workout/constants/breakpoint.dart';
+import 'package:street_workout/features/videos/view_models/timeline_view_model.dart';
 import 'package:street_workout/features/videos/views/widgets/video_post.dart';
 
-class VideoTimelineScreen extends StatefulWidget {
+class VideoTimelineScreen extends ConsumerStatefulWidget {
   const VideoTimelineScreen({super.key});
 
   @override
-  State<VideoTimelineScreen> createState() => _VideoTimelineScreenState();
+  VideoTimelineScreenState createState() => VideoTimelineScreenState();
 }
 
-class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
+class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   int _itemCount = 4;
 
   final PageController _pageController = PageController();
@@ -44,36 +46,45 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
 
   Future<void> _onRefesh() {
     return Future.delayed(
-      const Duration(
-        seconds: 1,
-      ),
+      const Duration(seconds: 5),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _onRefesh,
-      displacement: 50,
-      edgeOffset: 20,
-      color: Theme.of(context).primaryColor,
-      child: PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        onPageChanged: _onPageChanged,
-        itemCount: _itemCount,
-        itemBuilder: (context, index) => Center(
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: Breakpoints.lg,
-            ),
-            child: VideoPost(
-              onVideoFinished: _onVideoFinished,
-              index: index,
+    return ref.watch(timelineProvider).when(
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => Center(
+            child: Text(
+              'Could not load videos: $error',
+              style: const TextStyle(color: Colors.white),
             ),
           ),
-        ),
-      ),
-    );
+          data: (videos) => RefreshIndicator(
+            onRefresh: _onRefesh,
+            displacement: 50,
+            edgeOffset: 20,
+            color: Theme.of(context).primaryColor,
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.vertical,
+              onPageChanged: _onPageChanged,
+              itemCount: videos.length,
+              itemBuilder: (context, index) => Center(
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: Breakpoints.lg,
+                  ),
+                  child: VideoPost(
+                    onVideoFinished: _onVideoFinished,
+                    index: index,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
   }
 }
