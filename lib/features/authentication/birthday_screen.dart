@@ -31,8 +31,7 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    ref.read(signUpProvider.notifier).signUp();
-    // context.goNamed(InterestsScreen.routeName);
+    ref.read(signUpProvider.notifier).signUp(context);
   }
 
   void _setTextFieldDate(DateTime date) {
@@ -44,10 +43,14 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign up"),
+        title: const Text(
+          "Sign up",
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 36),
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.size36,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -60,13 +63,11 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
               ),
             ),
             Gaps.v8,
-            const Opacity(
-              opacity: 0.7,
-              child: Text(
-                "Your birthday won't be shown publicly.",
-                style: TextStyle(
-                  fontSize: Sizes.size16,
-                ),
+            Text(
+              "Your birthday won't be shown publicly.",
+              style: TextStyle(
+                fontSize: Sizes.size16,
+                color: Colors.grey.shade600,
               ),
             ),
             Gaps.v16,
@@ -90,11 +91,14 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
             Gaps.v28,
             GestureDetector(
               onTap: _onNextTap,
-              child: FormButton(disabled: ref.watch(signUpProvider).isLoading),
+              child: FormButton(
+                disabled: ref.watch(signUpProvider).isLoading,
+              ),
             ),
           ],
         ),
       ),
+      // FIXME: bottomNavigationBar to Stack
       bottomNavigationBar: SizedBox(
         height: 300,
         child: CupertinoDatePicker(

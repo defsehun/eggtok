@@ -37,7 +37,7 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
   }
 
   bool _isPasswordValid() {
-    return _password.isNotEmpty && _password.length > 8;
+    return _password.isNotEmpty && _password.length > 7;
   }
 
   void _onScaffoldTap() {
