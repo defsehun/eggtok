@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/authentication/login_screen.dart';
 import 'package:street_workout/features/authentication/username_screen.dart';
+import 'package:street_workout/features/authentication/view_model/social_auth_view_model.dart';
 import 'package:street_workout/features/authentication/widgets/auth_button.dart';
 import 'package:street_workout/generated/l10n.dart';
 import 'package:street_workout/utils.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends ConsumerWidget {
   static String routeURL = '/';
   static String routeName = "signUp";
   const SignUpScreen({super.key});
@@ -28,7 +30,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return OrientationBuilder(
       builder: (context, orientation) {
         return Scaffold(
@@ -65,8 +67,11 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Gaps.v16,
                     AuthButton(
-                      icon: const FaIcon(FontAwesomeIcons.apple),
-                      text: S.of(context).appleButton,
+                      icon: const FaIcon(FontAwesomeIcons.github),
+                      text: "Continue with Github",
+                      onAuthTap: (context) => ref
+                          .read(socialAuthProvider.notifier)
+                          .githubSignIn(context),
                     ),
                   ],
                   if (orientation == Orientation.landscape)
