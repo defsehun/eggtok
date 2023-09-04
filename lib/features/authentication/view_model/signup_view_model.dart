@@ -39,6 +39,7 @@ class SignUpViewModel extends AsyncNotifier<void> {
           bio: "undefined",
           link: "undefined",
           birthday: form["birthday"],
+          hasAvatar: false,
         );
 
         await users.createProfile(profile);

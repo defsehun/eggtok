@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class UserProfileModel {
   final String uid;
   final String email;
@@ -6,6 +7,7 @@ class UserProfileModel {
   final String bio;
   final String link;
   final String birthday;
+  final bool hasAvatar;
 
   UserProfileModel({
     required this.uid,
@@ -14,6 +16,7 @@ class UserProfileModel {
     required this.bio,
     required this.link,
     required this.birthday,
+    required this.hasAvatar,
   });
 
   UserProfileModel.empty()
@@ -22,7 +25,17 @@ class UserProfileModel {
         name = "",
         bio = "",
         link = "",
-        birthday = "";
+        birthday = "",
+        hasAvatar = false;
+
+  UserProfileModel.fromJson(Map<String, dynamic> json)
+      : uid = json["uid"],
+        email = json["email"],
+        name = json["name"],
+        bio = json["bio"],
+        link = json["link"],
+        birthday = json["birthday"],
+        hasAvatar = json["hasAvatar"];
 
   Map<String, String> toJson() {
     return {
@@ -33,5 +46,25 @@ class UserProfileModel {
       "link": link,
       "birthday": birthday,
     };
+  }
+
+  UserProfileModel copyWith({
+    String? uid,
+    String? email,
+    String? name,
+    String? bio,
+    String? link,
+    String? birthday,
+    bool? hasAvatar,
+  }) {
+    return UserProfileModel(
+      uid: uid ?? this.uid,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      bio: bio ?? this.bio,
+      link: link ?? this.link,
+      birthday: birthday ?? this.birthday,
+      hasAvatar: hasAvatar ?? this.hasAvatar,
+    );
   }
 }

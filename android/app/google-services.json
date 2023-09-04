@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "980711445390-adgq3t4lqrql1ck7gklec3stu65u20ve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.street_workout",
+            "certificate_hash": "0f61941f7215b04d84dcec66d92562af7fde3ed2"
+          }
+        },
+        {
           "client_id": "980711445390-clqnh78ife95j02r1bjvf6jcfv6o7c75.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -69,6 +69,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '980711445390',
     projectId: 'street-workout-project',
     storageBucket: 'street-workout-project.appspot.com',
+    androidClientId: '980711445390-adgq3t4lqrql1ck7gklec3stu65u20ve.apps.googleusercontent.com',
     iosClientId: '980711445390-rhc8m9ve0f8llh9cqv3doathm3qvridf.apps.googleusercontent.com',
     iosBundleId: 'com.example.streetWorkout',
   );
