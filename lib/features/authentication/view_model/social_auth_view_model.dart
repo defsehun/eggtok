@@ -23,6 +23,7 @@ class SocialAuthViewModel extends AsyncNotifier<void> {
     if (state.hasError) {
       showFirebaseErrorSnack(context, state.error);
     } else {
+      // TODO: signIn, signUp 구분 필요
       context.goNamed(InterestsScreen.routeName);
     }
   }
