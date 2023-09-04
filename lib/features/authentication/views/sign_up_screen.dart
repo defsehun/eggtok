@@ -4,10 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/authentication/login_screen.dart';
-import 'package:street_workout/features/authentication/username_screen.dart';
 import 'package:street_workout/features/authentication/view_model/social_auth_view_model.dart';
-import 'package:street_workout/features/authentication/widgets/auth_button.dart';
+import 'package:street_workout/features/authentication/views/login_screen.dart';
+import 'package:street_workout/features/authentication/views/username_screen.dart';
+import 'package:street_workout/features/authentication/views/widgets/auth_button.dart';
 import 'package:street_workout/generated/l10n.dart';
 import 'package:street_workout/utils.dart';
 

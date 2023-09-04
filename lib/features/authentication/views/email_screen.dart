@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/authentication/password_screen.dart';
 import 'package:street_workout/features/authentication/view_model/signup_view_model.dart';
-import 'package:street_workout/features/authentication/widgets/form_button.dart';
+import 'package:street_workout/features/authentication/views/password_screen.dart';
+import 'package:street_workout/features/authentication/views/widgets/form_button.dart';
 
 class EmailScreenArgs {
   final String username;

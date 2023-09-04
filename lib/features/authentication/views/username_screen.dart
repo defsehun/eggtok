@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/authentication/email_screen.dart';
-import 'package:street_workout/features/authentication/widgets/form_button.dart';
+import 'package:street_workout/features/authentication/views/email_screen.dart';
+import 'package:street_workout/features/authentication/views/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({super.key});

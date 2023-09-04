@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/authentication/birthday_screen.dart';
 import 'package:street_workout/features/authentication/view_model/signup_view_model.dart';
-import 'package:street_workout/features/authentication/widgets/form_button.dart';
+import 'package:street_workout/features/authentication/views/birthday_screen.dart';
+import 'package:street_workout/features/authentication/views/widgets/form_button.dart';
 
 class PasswordScreen extends ConsumerStatefulWidget {
   const PasswordScreen({super.key});

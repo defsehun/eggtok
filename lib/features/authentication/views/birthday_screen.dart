@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/authentication/view_model/signup_view_model.dart';
-import 'package:street_workout/features/authentication/widgets/form_button.dart';
+import 'package:street_workout/features/authentication/views/widgets/form_button.dart';
 
 class BirthdayScreen extends ConsumerStatefulWidget {
   const BirthdayScreen({super.key});

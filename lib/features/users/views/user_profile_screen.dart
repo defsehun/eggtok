@@ -4,9 +4,9 @@ import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/settings/settings_screen.dart';
-import 'package:street_workout/features/users/widgets/persistent_tab_bar.dart';
-import 'package:street_workout/features/users/widgets/user_action_button.dart';
-import 'package:street_workout/features/users/widgets/user_count.dart';
+import 'package:street_workout/features/users/views/widgets/persistent_tab_bar.dart';
+import 'package:street_workout/features/users/views/widgets/user_action_button.dart';
+import 'package:street_workout/features/users/views/widgets/user_count.dart';
 import 'package:street_workout/utils.dart';
 
 class UserProfileScreen extends StatefulWidget {
