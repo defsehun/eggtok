@@ -35,9 +35,9 @@ class UserProfileModel {
         bio = json["bio"],
         link = json["link"],
         birthday = json["birthday"],
-        hasAvatar = json["hasAvatar"];
+        hasAvatar = json["hasAvatar"] ?? false;
 
-  Map<String, String> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "uid": uid,
       "email": email,
@@ -45,6 +45,7 @@ class UserProfileModel {
       "bio": bio,
       "link": link,
       "birthday": birthday,
+      "hasAvatar": hasAvatar,
     };
   }
 

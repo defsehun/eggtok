@@ -13,6 +13,10 @@ class UserRepository {
     await _db.collection("users").doc(profile.uid).set(profile.toJson());
   }
 
+  Future<void> updateProfile(String uid, Map<String, dynamic> data) async {
+    await _db.collection("users").doc(uid).update(data);
+  }
+
   Future<Map<String, dynamic>?> findProfile(String uid) async {
     final doc = await _db.collection("users").doc(uid).get();
     return doc.data();
@@ -21,10 +25,6 @@ class UserRepository {
   Future<void> uploadAvatar(File file, String fileName) async {
     final fileRef = _storage.ref().child("avatars/$fileName");
     await fileRef.putFile(file);
-  }
-
-  Future<void> updateUser(String uid, Map<String, dynamic> data) async {
-    await _db.collection("users").doc(uid).update(data);
   }
 }
 

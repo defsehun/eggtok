@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/users/models/user_profile_model.dart';
 import 'package:street_workout/features/users/view_model/users_view_model.dart';
 import 'package:street_workout/utils.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
-  const EditProfileScreen({super.key});
+  final UserProfileModel profileModel;
+
+  const EditProfileScreen({super.key, required this.profileModel});
 
   @override
   ConsumerState<EditProfileScreen> createState() => EditProfileScreenState();
@@ -21,8 +24,14 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        ref.read(usersProvider.notifier).updateProfile();
-        // context.goNamed(InterestsScreen.routeName);
+
+        ref.read(usersProvider.notifier).updateProfile(
+              name: _formData["name"],
+              bio: _formData["bio"],
+              link: _formData["link"],
+            );
+
+        Navigator.of(context).pop();
       }
     }
   }
@@ -66,10 +75,12 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           horizontal: Sizes.size36,
         ),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               Gaps.v28,
               TextFormField(
+                initialValue: widget.profileModel.name,
                 decoration: InputDecoration(
                   hintText: "Name",
                   enabledBorder: UnderlineInputBorder(
@@ -96,6 +107,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               Gaps.v16,
               TextFormField(
+                initialValue: widget.profileModel.bio,
                 decoration: InputDecoration(
                   hintText: "Bio",
                   enabledBorder: UnderlineInputBorder(
@@ -115,14 +127,14 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   });
                 },
                 onSaved: (newValue) {
-                  print(newValue);
-                  if (newValue != null && newValue.isEmpty) {
+                  if (newValue != null) {
                     _formData['bio'] = newValue;
                   }
                 },
               ),
               Gaps.v16,
               TextFormField(
+                initialValue: widget.profileModel.link,
                 keyboardType: TextInputType.url,
                 decoration: InputDecoration(
                   hintText: "Link",
@@ -143,8 +155,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   });
                 },
                 onSaved: (newValue) {
-                  print(newValue);
-                  if (newValue != null && newValue.isEmpty) {
+                  if (newValue != null) {
                     _formData['link'] = newValue;
                   }
                 },

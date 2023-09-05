@@ -5,6 +5,7 @@ import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/settings/settings_screen.dart';
+import 'package:street_workout/features/users/models/user_profile_model.dart';
 import 'package:street_workout/features/users/view_model/users_view_model.dart';
 import 'package:street_workout/features/users/views/edit_profile_screen.dart';
 import 'package:street_workout/features/users/views/widgets/avatar.dart';
@@ -42,10 +43,10 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     );
   }
 
-  void _onEditProfilePressed() {
+  void _onEditProfilePressed(UserProfileModel profileModel) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const EditProfileScreen(),
+        builder: (context) => EditProfileScreen(profileModel: profileModel),
       ),
     );
   }
@@ -76,7 +77,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                         centerTitle: true,
                         actions: [
                           IconButton(
-                            onPressed: _onEditProfilePressed,
+                            onPressed: () => _onEditProfilePressed(data),
                             icon: const FaIcon(
                               FontAwesomeIcons.userPen,
                               size: Sizes.size20,
@@ -187,18 +188,17 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                               ],
                             ),
                             Gaps.v14,
-                            if (data.bio != "undefined")
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: Sizes.size32,
-                                ),
-                                child: Text(
-                                  data.bio,
-                                  textAlign: TextAlign.center,
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: Sizes.size32,
                               ),
+                              child: Text(
+                                data.bio,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                             Gaps.v14,
-                            if (data.link != "undefined")
+                            if (data.link.isNotEmpty)
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
