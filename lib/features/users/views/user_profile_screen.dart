@@ -6,6 +6,7 @@ import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/settings/settings_screen.dart';
 import 'package:street_workout/features/users/view_model/users_view_model.dart';
+import 'package:street_workout/features/users/views/edit_profile_screen.dart';
 import 'package:street_workout/features/users/views/widgets/avatar.dart';
 import 'package:street_workout/features/users/views/widgets/persistent_tab_bar.dart';
 import 'package:street_workout/features/users/views/widgets/user_action_button.dart';
@@ -41,6 +42,14 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     );
   }
 
+  void _onEditProfilePressed() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EditProfileScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -64,7 +73,15 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                     return [
                       SliverAppBar(
                         title: Text(data.name),
+                        centerTitle: true,
                         actions: [
+                          IconButton(
+                            onPressed: _onEditProfilePressed,
+                            icon: const FaIcon(
+                              FontAwesomeIcons.userPen,
+                              size: Sizes.size20,
+                            ),
+                          ),
                           IconButton(
                             onPressed: _onSettingsPressed,
                             icon: const FaIcon(
@@ -170,32 +187,34 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                               ],
                             ),
                             Gaps.v14,
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Sizes.size32,
+                            if (data.bio != "undefined")
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: Sizes.size32,
+                                ),
+                                child: Text(
+                                  data.bio,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              child: Text(
-                                "All highlights and where to watch live matches on FIFA+ I wonder how it would loook",
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
                             Gaps.v14,
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FaIcon(
-                                  FontAwesomeIcons.link,
-                                  size: Sizes.size12,
-                                ),
-                                Gaps.h4,
-                                Text(
-                                  "https://www.instagram.com/nebbia_fitness/",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
+                            if (data.link != "undefined")
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const FaIcon(
+                                    FontAwesomeIcons.link,
+                                    size: Sizes.size12,
                                   ),
-                                ),
-                              ],
-                            ),
+                                  Gaps.h4,
+                                  Text(
+                                    data.link,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             Gaps.v14,
                           ],
                         ),
