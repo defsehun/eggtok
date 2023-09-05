@@ -81,6 +81,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               Gaps.v28,
               TextFormField(
                 initialValue: widget.profileModel.name,
+                maxLength: 10,
                 decoration: InputDecoration(
                   hintText: "Name",
                   enabledBorder: UnderlineInputBorder(
@@ -100,7 +101,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   });
                 },
                 onSaved: (newValue) {
-                  if (newValue != null && newValue.isEmpty) {
+                  if (newValue != null && newValue.isNotEmpty) {
                     _formData['name'] = newValue;
                   }
                 },
@@ -108,6 +109,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               Gaps.v16,
               TextFormField(
                 initialValue: widget.profileModel.bio,
+                maxLength: 100,
                 decoration: InputDecoration(
                   hintText: "Bio",
                   enabledBorder: UnderlineInputBorder(
@@ -135,6 +137,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               Gaps.v16,
               TextFormField(
                 initialValue: widget.profileModel.link,
+                maxLength: 60,
                 keyboardType: TextInputType.url,
                 decoration: InputDecoration(
                   hintText: "Link",
