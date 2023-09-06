@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -72,5 +69,16 @@ class DefaultFirebaseOptions {
     androidClientId: '980711445390-adgq3t4lqrql1ck7gklec3stu65u20ve.apps.googleusercontent.com',
     iosClientId: '980711445390-rhc8m9ve0f8llh9cqv3doathm3qvridf.apps.googleusercontent.com',
     iosBundleId: 'com.example.streetWorkout',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBOmQKRZuhabVY7sV-lH7Yb3cxtMcIlaFE',
+    appId: '1:980711445390:ios:ff524885935aab1cc60adf',
+    messagingSenderId: '980711445390',
+    projectId: 'street-workout-project',
+    storageBucket: 'street-workout-project.appspot.com',
+    androidClientId: '980711445390-adgq3t4lqrql1ck7gklec3stu65u20ve.apps.googleusercontent.com',
+    iosClientId: '980711445390-ufln9foaaqgoi13mhcropridodqrnm21.apps.googleusercontent.com',
+    iosBundleId: 'com.example.streetWorkout.RunnerTests',
   );
 }
