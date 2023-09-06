@@ -6,6 +6,7 @@ import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/videos/models/video_model.dart';
 import 'package:street_workout/features/videos/view_models/playback_config_vm.dart';
+import 'package:street_workout/features/videos/view_models/video_post_view_model.dart';
 import 'package:street_workout/features/videos/views/widgets/video_button.dart';
 import 'package:street_workout/features/videos/views/widgets/video_comments.dart';
 import 'package:street_workout/features/videos/views/widgets/video_tag_info.dart';
@@ -56,6 +57,10 @@ class VideoPostState extends ConsumerState<VideoPost>
         widget.onVideoFinished();
       }
     }
+  }
+
+  void _onLikeTap(BuildContext context) {
+    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
   }
 
   void _initVideoPlayer() async {
@@ -280,6 +285,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                 ),
                 Gaps.v24,
                 VideoButton(
+                  onTap: _onLikeTap,
                   icon: FontAwesomeIcons.solidHeart,
                   text: S.of(context).likeCount(widget.videoData.likes),
                 ),
