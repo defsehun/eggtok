@@ -30,6 +30,7 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
         );
         if (task.metadata != null) {
           await _repositoty.saveVideo(
+            // TODO: videoId, 비디오 업로드 입력화면
             VideoModel(
               id: "",
               title: "${userProfile.name}'s video!",

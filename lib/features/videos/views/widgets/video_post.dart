@@ -64,6 +64,7 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    // TODO: get DB
     _videoPlayerController =
         VideoPlayerController.asset("assets/videos/test3.mp4");
 
