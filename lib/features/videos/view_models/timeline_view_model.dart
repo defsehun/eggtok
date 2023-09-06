@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:street_workout/features/videos/models/video_model.dart';
+import 'package:street_workout/features/videos/repos/videos.repo.dart';
 
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
+  late final VideoRepositoty _repositoty;
   List<VideoModel> _list = [];
-
-  void uploadVideo() async {
-    state = const AsyncValue.loading();
-    await Future.delayed(const Duration(seconds: 2));
-    //final newViedeo = VideoModel(title: "${DateTime.now()}");
-    //_list = [..._list, newViedeo];
-    _list = [..._list];
-    state = AsyncValue.data(_list);
-  }
 
   @override
   FutureOr<List<VideoModel>> build() async {
-    await Future.delayed(const Duration(seconds: 5));
+    _repositoty = ref.read(videoRepo);
+    final result = await _repositoty.fetchVideos();
+    final newList = result.docs.map(
+      (doc) => VideoModel.fromJson(
+        doc.data(),
+      ),
+    );
+    _list = newList.toList();
     return _list;
   }
 }

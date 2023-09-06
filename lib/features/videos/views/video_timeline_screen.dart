@@ -72,17 +72,21 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               scrollDirection: Axis.vertical,
               onPageChanged: _onPageChanged,
               itemCount: videos.length,
-              itemBuilder: (context, index) => Center(
-                child: Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: Breakpoints.lg,
+              itemBuilder: (context, index) {
+                final videoData = videos[index];
+                return Center(
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: Breakpoints.lg,
+                    ),
+                    child: VideoPost(
+                      onVideoFinished: _onVideoFinished,
+                      index: index,
+                      videoData: videoData,
+                    ),
                   ),
-                  child: VideoPost(
-                    onVideoFinished: _onVideoFinished,
-                    index: index,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         );

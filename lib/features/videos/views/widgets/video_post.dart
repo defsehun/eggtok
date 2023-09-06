@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/videos/models/video_model.dart';
 import 'package:street_workout/features/videos/view_models/playback_config_vm.dart';
-import 'package:street_workout/features/videos/views/widgets/video_bgm_info.dart';
 import 'package:street_workout/features/videos/views/widgets/video_button.dart';
 import 'package:street_workout/features/videos/views/widgets/video_comments.dart';
 import 'package:street_workout/features/videos/views/widgets/video_tag_info.dart';
@@ -15,10 +15,12 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
+  final VideoModel videoData;
   final int index;
 
   const VideoPost({
     super.key,
+    required this.videoData,
     required this.onVideoFinished,
     required this.index,
   });
@@ -161,6 +163,8 @@ class VideoPostState extends ConsumerState<VideoPost>
 
   @override
   Widget build(BuildContext context) {
+    // _isPaused = !ref.read(playbackConfigProvider).autoplay;
+    // _isPaused ? _animationController.reverse() : null;
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -178,7 +182,10 @@ class VideoPostState extends ConsumerState<VideoPost>
                       ),
                     ],
                   )
-                : Container(color: Colors.black),
+                : Image.network(
+                    widget.videoData.thumbnailUrl,
+                    fit: BoxFit.cover,
+                  ),
           ),
           Positioned.fill(
             child: GestureDetector(
@@ -230,18 +237,18 @@ class VideoPostState extends ConsumerState<VideoPost>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "@iSehun",
-                    style: TextStyle(
+                  Text(
+                    "@${widget.videoData.creator}",
+                    style: const TextStyle(
                       fontSize: Sizes.size18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Gaps.v10,
-                  const Text(
-                    "두아 리파 1열 관람!!",
-                    style: TextStyle(
+                  Text(
+                    widget.videoData.description,
+                    style: const TextStyle(
                       fontSize: Sizes.size16,
                       color: Colors.white,
                     ),
@@ -249,11 +256,11 @@ class VideoPostState extends ConsumerState<VideoPost>
                   Gaps.v10,
                   VideoTagInfo(desc: tags.map((tag) => '#$tag').join(', ')),
                   Gaps.v10,
-                  SizedBox(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width - 100,
-                    child: VideoBgmInfo(bgmInfo: bgmInfo),
-                  ),
+                  // SizedBox(
+                  //   height: 30,
+                  //   width: MediaQuery.of(context).size.width - 100,
+                  //   child: VideoBgmInfo(bgmInfo: bgmInfo),
+                  // ),
                 ],
               ),
             ),
@@ -263,24 +270,24 @@ class VideoPostState extends ConsumerState<VideoPost>
             right: Sizes.size10,
             child: Column(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                   foregroundImage: NetworkImage(
-                      "https://avatars.githubusercontent.com/u/17242597?v=4"),
-                  child: Text("S"),
+                      "https://firebasestorage.googleapis.com/v0/b/street-workout-project.appspot.com/o/avatars%2F${widget.videoData.creatorUid}?alt=media"),
+                  child: Text(widget.videoData.creator),
                 ),
                 Gaps.v24,
                 VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(29803400),
+                  text: S.of(context).likeCount(widget.videoData.likes),
                 ),
                 Gaps.v10,
                 VideoButton(
                   onTap: _onCommentsTap,
                   icon: FontAwesomeIcons.solidComment,
-                  text: S.of(context).commentCount(332400),
+                  text: S.of(context).commentCount(widget.videoData.comments),
                 ),
                 Gaps.v10,
                 const VideoButton(
