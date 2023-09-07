@@ -82,18 +82,8 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               TextFormField(
                 initialValue: widget.profileModel.name,
                 maxLength: 10,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Name",
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
                 ),
                 onChanged: (newValue) {
                   setState(() {
@@ -110,18 +100,8 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               TextFormField(
                 initialValue: widget.profileModel.bio,
                 maxLength: 100,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Bio",
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
                 ),
                 onChanged: (newValue) {
                   setState(() {
@@ -139,18 +119,8 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 initialValue: widget.profileModel.link,
                 maxLength: 60,
                 keyboardType: TextInputType.url,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Link",
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
                 ),
                 onChanged: (newValue) {
                   setState(() {

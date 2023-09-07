@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:street_workout/features/videos/view_models/upload_video_view_model.dart';
+import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/videos/views/upload_video_screen.dart';
 import 'package:video_player/video_player.dart';
 import 'package:gal/gal.dart';
 
@@ -60,11 +62,13 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
     setState(() {});
   }
 
-  void _onUploadPressed() {
-    ref.read(uploadVideoProvider.notifier).uploadVideo(
-          File(widget.video.path),
-          context,
-        );
+  void _onNext() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UploadVideoScreen(video: widget.video),
+      ),
+    );
   }
 
   @override
@@ -82,18 +86,36 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
                     : FontAwesomeIcons.download,
               ),
             ),
-          IconButton(
+          /* IconButton(
             onPressed: ref.watch(uploadVideoProvider).isLoading
                 ? () {}
                 : _onUploadPressed,
             icon: ref.watch(uploadVideoProvider).isLoading
                 ? const CircularProgressIndicator()
                 : const FaIcon(FontAwesomeIcons.cloudArrowUp),
-          ),
+          ), */
         ],
       ),
       body: _videoPlayerController.value.isInitialized
-          ? VideoPlayer(_videoPlayerController)
+          ? Stack(
+              children: [
+                VideoPlayer(_videoPlayerController),
+                Positioned.fill(
+                  bottom: Sizes.size60,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      width: 300,
+                      child: CupertinoButton(
+                        onPressed: _onNext,
+                        color: Theme.of(context).primaryColor,
+                        child: const Text("Next"),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           : null,
     );
   }
