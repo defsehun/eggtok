@@ -38,6 +38,7 @@ class VideoPostState extends ConsumerState<VideoPost>
   late final AnimationController _animationController;
 
   bool _isPaused = false;
+  int _likeCount = 0;
 
   final List<String> tags = [
     "sans",
@@ -59,8 +60,16 @@ class VideoPostState extends ConsumerState<VideoPost>
     }
   }
 
-  void _onLikeTap(BuildContext context) {
-    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+  Future<void> _onLikeTap(BuildContext context) async {
+    Future<bool> isLiked = ref
+        .read(videoPostProvider(widget.videoData.id).notifier)
+        .toggleLikeVideo();
+    if (await isLiked) {
+      _likeCount++;
+    } else {
+      _likeCount--;
+    }
+    setState(() {});
   }
 
   void _initVideoPlayer() async {
@@ -71,6 +80,7 @@ class VideoPostState extends ConsumerState<VideoPost>
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
 
+    _likeCount = widget.videoData.likes;
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
@@ -169,8 +179,6 @@ class VideoPostState extends ConsumerState<VideoPost>
 
   @override
   Widget build(BuildContext context) {
-    // _isPaused = !ref.read(playbackConfigProvider).autoplay;
-    // _isPaused ? _animationController.reverse() : null;
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -288,7 +296,12 @@ class VideoPostState extends ConsumerState<VideoPost>
                 VideoButton(
                   onTap: _onLikeTap,
                   icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(widget.videoData.likes),
+                  text: S.of(context).likeCount(_likeCount),
+                  color: ref.watch(videoPostProvider(widget.videoData.id)).when(
+                        data: (isLiked) => isLiked ? Colors.red : Colors.white,
+                        error: (error, stackTrace) => Colors.white,
+                        loading: () => Colors.white,
+                      ),
                 ),
                 Gaps.v10,
                 VideoButton(

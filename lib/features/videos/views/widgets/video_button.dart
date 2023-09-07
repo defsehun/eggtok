@@ -6,12 +6,14 @@ import 'package:street_workout/constants/sizes.dart';
 class VideoButton extends StatelessWidget {
   final IconData icon;
   final String? text;
+  final Color? color;
   final Function(BuildContext)? onTap;
 
   const VideoButton({
     super.key,
     required this.icon,
     this.text,
+    this.color,
     this.onTap,
   });
 
@@ -27,7 +29,7 @@ class VideoButton extends StatelessWidget {
         children: [
           FaIcon(
             icon,
-            color: Colors.white,
+            color: color ?? Colors.white,
             size: Sizes.size32,
           ),
           Gaps.v2,
