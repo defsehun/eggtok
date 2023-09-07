@@ -73,13 +73,14 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _initVideoPlayer() async {
-    // TODO: get DB
     _videoPlayerController =
-        VideoPlayerController.asset("assets/videos/test3.mp4");
+        VideoPlayerController.network(widget.videoData.fileUrl);
 
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
 
+    // FIXME: _likeCount 실시간으로 변경되었을때 다시 받아오는 로직 필요.
+    // fetch currunt videoData
     _likeCount = widget.videoData.likes;
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});

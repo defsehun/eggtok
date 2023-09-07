@@ -58,9 +58,9 @@ export const onVideoCreated = functions.firestore
       .collection("videos")
       .doc(snapshot.id)
       .set({
-        // TODO: users/id/videos/id, users/id/likedVideos/id, 필드 구조 통일
         thumbnailUrl: file.publicUrl(),
         videoId: snapshot.id,
+        createdAt: video.createdAt,
       });
   });
 
@@ -88,7 +88,6 @@ export const onLikedCreated = functions.firestore
       .collection("likedVideos")
       .doc(videoId)
       .set({
-        // TODO: users/id/videos/id, users/id/likedVideos/id, 필드 구조 통일
         thumbnailUrl: thumbnailUrl,
         videoId: videoId,
         createdAt: createdAt,

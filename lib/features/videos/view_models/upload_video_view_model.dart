@@ -32,7 +32,7 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
           await _repositoty.saveVideo(
             // TODO: videoId, 비디오 업로드 입력화면
             VideoModel(
-              id: "",
+              id: "", // timeline fetchVideos 에서 videos collection의 doc.id 를 넣어 사용한다.
               title: "${userProfile.name}'s video!",
               description: "createdAt: ${DateTime.now().toString()}",
               fileUrl: await task.ref.getDownloadURL(),

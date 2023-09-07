@@ -177,6 +177,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   }
 
   Future<void> _onPickVideoPressed() async {
+    // TODO: 비디오 압축 및 품질 수정 필요
     final video = await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (video == null) return;
 
