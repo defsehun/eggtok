@@ -33,7 +33,8 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   Future<void> fetchNextPage() async {
     final nextPage =
         await _fetchVideos(lastItemCreatedAt: _list.last.createdAt);
-    state = AsyncValue.data([..._list, ...nextPage]);
+    _list.addAll(nextPage);
+    state = AsyncValue.data(_list);
   }
 
   Future<void> refresh() async {

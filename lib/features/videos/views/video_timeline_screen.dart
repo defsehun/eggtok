@@ -44,6 +44,8 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   }
 
   Future<void> _onRefesh() {
+    // FIXME: https://stackoverflow.com/questions/63888943/flutter-pageview-itemcount-change-causes-pagecontroller-jumptopage-to-jump-to-wr
+
     return ref.watch(timelineProvider.notifier).refresh();
   }
 
@@ -70,7 +72,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               controller: _pageController,
               scrollDirection: Axis.vertical,
               onPageChanged: _onPageChanged,
-              itemCount: videos.length,
+              itemCount: _itemCount,
               itemBuilder: (context, index) {
                 final videoData = videos[index];
                 return Center(
