@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/authentication/repos/authentication_repo.dart';
 import 'package:street_workout/features/inbox/view_models/messages_view_model.dart';
 import 'package:street_workout/utils.dart';
 
@@ -111,54 +112,78 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
             onTap: _stopWriting,
             child: Stack(
               children: [
-                ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Sizes.size20,
-                    horizontal: Sizes.size14,
-                  ),
-                  itemBuilder: (context, index) {
-                    final isMine = index % 2 == 0;
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: isMine
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(Sizes.size14),
-                          decoration: BoxDecoration(
-                              color: isMine
-                                  ? Colors.blue
-                                  : Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(Sizes.size20),
-                                topRight: const Radius.circular(Sizes.size20),
-                                bottomLeft: Radius.circular(
-                                    isMine ? Sizes.size20 : Sizes.size5),
-                                bottomRight: Radius.circular(
-                                    !isMine ? Sizes.size20 : Sizes.size5),
-                              )),
-                          child: const Text(
-                            "this is a message!!",
-                            style: TextStyle(
-                              color: Colors.white,
-                              //fontSize: Sizes.size16,
-                            ),
+                ref.watch(chatProvider).when(
+                      data: (data) {
+                        return ListView.separated(
+                          reverse: true,
+                          padding: EdgeInsets.only(
+                            top: Sizes.size20,
+                            bottom: MediaQuery.of(context).padding.bottom +
+                                Sizes.size96,
+                            left: Sizes.size14,
+                            right: Sizes.size14,
                           ),
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) => Gaps.v10,
-                  itemCount: 10,
-                ),
+                          itemBuilder: (context, index) {
+                            final message = data[index];
+                            final isMine =
+                                message.userId == ref.watch(authRepo).user!.uid;
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: isMine
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(Sizes.size14),
+                                  decoration: BoxDecoration(
+                                      color: isMine
+                                          ? Colors.blue
+                                          : Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft:
+                                            const Radius.circular(Sizes.size20),
+                                        topRight:
+                                            const Radius.circular(Sizes.size20),
+                                        bottomLeft: Radius.circular(isMine
+                                            ? Sizes.size20
+                                            : Sizes.size5),
+                                        bottomRight: Radius.circular(!isMine
+                                            ? Sizes.size20
+                                            : Sizes.size5),
+                                      )),
+                                  child: Text(
+                                    message.text,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      //fontSize: Sizes.size16,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                          separatorBuilder: (context, index) => Gaps.v10,
+                          itemCount: data.length,
+                        );
+                      },
+                      error: (error, stackTrace) => Center(
+                        child: Text(error.toString()),
+                      ),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
                 Positioned(
                   bottom: 0,
                   width: MediaQuery.of(context).size.width,
-                  child: BottomAppBar(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size16,
-                      vertical: Sizes.size10,
+                  child: Container(
+                    color: isDark ? Colors.black : Colors.grey.shade50,
+                    padding: EdgeInsets.only(
+                      left: Sizes.size14,
+                      right: Sizes.size14,
+                      top: Sizes.size10,
+                      bottom:
+                          MediaQuery.of(context).padding.bottom + Sizes.size20,
                     ),
                     child: Row(
                       children: [

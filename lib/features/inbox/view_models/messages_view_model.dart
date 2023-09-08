@@ -31,7 +31,12 @@ final messagesProvider = AsyncNotifierProvider<MessagesViewModel, void>(
   () => MessagesViewModel(),
 );
 
-final chatProvider = StreamProvider<List<MessageModel>>(
+// Note: When listening to web sockets, firebase, or anything that consumes resources,
+// it is important to use [StreamProvider.autoDispose] instead of simply [StreamProvider].
+// This ensures that the resources are released when no longer needed as, by default,
+// a [StreamProvider] is almost never destroyed.
+// autoDispose를 해주지 않으면 채팅방을 나가도 StreamProvider를 계속 사용중인 상태가 유지된다.
+final chatProvider = StreamProvider.autoDispose<List<MessageModel>>(
   (ref) {
     final db = FirebaseFirestore.instance;
 
@@ -39,7 +44,7 @@ final chatProvider = StreamProvider<List<MessageModel>>(
         .collection("chat_rooms")
         .doc("sfXzKECn7IuWquPXNBNK")
         .collection("texts")
-        .orderBy("createAt")
+        .orderBy("createdAt")
         .snapshots()
         .map((event) => event.docs
             .map(
@@ -47,6 +52,8 @@ final chatProvider = StreamProvider<List<MessageModel>>(
                 doc.data(),
               ),
             )
+            .toList()
+            .reversed
             .toList());
   },
 );
