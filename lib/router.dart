@@ -5,9 +5,9 @@ import 'package:street_workout/common/widgets/main_navigation/main_navigation_sc
 import 'package:street_workout/features/authentication/repos/authentication_repo.dart';
 import 'package:street_workout/features/authentication/views/login_screen.dart';
 import 'package:street_workout/features/authentication/views/sign_up_screen.dart';
-import 'package:street_workout/features/inbox/activity_screen.dart';
-import 'package:street_workout/features/inbox/chat_detail_screen.dart';
-import 'package:street_workout/features/inbox/chats_screen.dart';
+import 'package:street_workout/features/inbox/views/activity_screen.dart';
+import 'package:street_workout/features/inbox/views/chat_detail_screen.dart';
+import 'package:street_workout/features/inbox/views/chats_screen.dart';
 import 'package:street_workout/features/onboarding/interests_screen.dart';
 import 'package:street_workout/features/videos/views/video_recording_screen.dart';
 

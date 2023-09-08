@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/sizes.dart';
-import 'package:street_workout/features/inbox/chat_detail_screen.dart';
+import 'package:street_workout/features/inbox/views/chat_detail_screen.dart';
 
 class ChatsScreen extends StatefulWidget {
   static const String routeName = "chats";
