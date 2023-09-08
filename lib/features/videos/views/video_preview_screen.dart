@@ -63,6 +63,7 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
   }
 
   void _onNext() {
+    _videoPlayerController.pause();
     Navigator.push(
       context,
       MaterialPageRoute(
