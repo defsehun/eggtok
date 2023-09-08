@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
+import 'package:street_workout/features/inbox/view_models/messages_view_model.dart';
 import 'package:street_workout/utils.dart';
 
-class ChatDetailScreen extends StatefulWidget {
+class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
   static const String routeURL = ":chatId";
 
@@ -14,27 +16,28 @@ class ChatDetailScreen extends StatefulWidget {
   const ChatDetailScreen({super.key, required this.chatId});
 
   @override
-  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
+  ConsumerState<ChatDetailScreen> createState() => _ChatDetailScreenState();
 }
 
-class _ChatDetailScreenState extends State<ChatDetailScreen> {
-  bool _isWriting = false;
+class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
+  final TextEditingController _editingController = TextEditingController();
 
   void _stopWriting() {
     FocusScope.of(context).unfocus();
-    setState(() {
-      _isWriting = false;
-    });
   }
 
-  void _onStartWriting() {
-    setState(() {
-      _isWriting = true;
-    });
+  void _onSendPress() {
+    final text = _editingController.text;
+    if (text == "") {
+      return;
+    }
+    ref.read(messagesProvider.notifier).sendMessage(text);
+    _editingController.text = "";
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(messagesProvider).isLoading;
     final isDark = isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
@@ -163,7 +166,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                           child: SizedBox(
                             height: Sizes.size40,
                             child: TextField(
-                              onTap: _onStartWriting,
+                              controller: _editingController,
                               expands: true,
                               minLines: null,
                               maxLines: null,
@@ -203,14 +206,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                           ),
                         ),
                         Gaps.h12,
-                        GestureDetector(
-                          onTap: _stopWriting,
-                          child: FaIcon(
-                            FontAwesomeIcons.circleArrowUp,
-                            size: Sizes.size30,
-                            color: _isWriting
-                                ? Theme.of(context).primaryColor
-                                : Colors.grey.shade400,
+                        IconButton(
+                          onPressed: isLoading ? null : _onSendPress,
+                          icon: FaIcon(
+                            isLoading
+                                ? FontAwesomeIcons.hourglass
+                                : FontAwesomeIcons.paperPlane,
                           ),
                         ),
                       ],
