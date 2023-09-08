@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/gaps.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/authentication/repos/authentication_repo.dart';
@@ -104,147 +103,130 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
         ),
       ),
       body: Center(
-        child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: Breakpoints.md,
-          ),
-          child: GestureDetector(
-            onTap: _stopWriting,
-            child: Stack(
-              children: [
-                ref.watch(chatProvider).when(
-                      data: (data) {
-                        return ListView.separated(
-                          reverse: true,
-                          padding: EdgeInsets.only(
-                            top: Sizes.size20,
-                            bottom: MediaQuery.of(context).padding.bottom +
-                                Sizes.size96,
-                            left: Sizes.size14,
-                            right: Sizes.size14,
-                          ),
-                          itemBuilder: (context, index) {
-                            final message = data[index];
-                            final isMine =
-                                message.userId == ref.watch(authRepo).user!.uid;
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: isMine
-                                  ? MainAxisAlignment.end
-                                  : MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(Sizes.size14),
-                                  decoration: BoxDecoration(
-                                      color: isMine
-                                          ? Colors.blue
-                                          : Theme.of(context).primaryColor,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft:
-                                            const Radius.circular(Sizes.size20),
-                                        topRight:
-                                            const Radius.circular(Sizes.size20),
-                                        bottomLeft: Radius.circular(isMine
-                                            ? Sizes.size20
-                                            : Sizes.size5),
-                                        bottomRight: Radius.circular(!isMine
-                                            ? Sizes.size20
-                                            : Sizes.size5),
-                                      )),
-                                  child: Text(
-                                    message.text,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      //fontSize: Sizes.size16,
-                                    ),
+        child: GestureDetector(
+          onTap: _stopWriting,
+          child: Stack(
+            children: [
+              ref.watch(chatProvider).when(
+                    data: (data) {
+                      return ListView.separated(
+                        reverse: true,
+                        padding: EdgeInsets.only(
+                          top: Sizes.size20,
+                          bottom: MediaQuery.of(context).padding.bottom +
+                              Sizes.size96,
+                          left: Sizes.size14,
+                          right: Sizes.size14,
+                        ),
+                        itemBuilder: (context, index) {
+                          final message = data[index];
+                          final isMine =
+                              message.userId == ref.watch(authRepo).user!.uid;
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: isMine
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(Sizes.size14),
+                                decoration: BoxDecoration(
+                                    color: isMine
+                                        ? Colors.blue
+                                        : Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft:
+                                          const Radius.circular(Sizes.size20),
+                                      topRight:
+                                          const Radius.circular(Sizes.size20),
+                                      bottomLeft: Radius.circular(
+                                          isMine ? Sizes.size20 : Sizes.size5),
+                                      bottomRight: Radius.circular(
+                                          !isMine ? Sizes.size20 : Sizes.size5),
+                                    )),
+                                child: Text(
+                                  message.text,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    //fontSize: Sizes.size16,
                                   ),
                                 ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) => Gaps.v10,
-                          itemCount: data.length,
-                        );
-                      },
-                      error: (error, stackTrace) => Center(
-                        child: Text(error.toString()),
-                      ),
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => Gaps.v10,
+                        itemCount: data.length,
+                      );
+                    },
+                    error: (error, stackTrace) => Center(
+                      child: Text(error.toString()),
                     ),
-                Positioned(
-                  bottom: 0,
-                  width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    color: isDark ? Colors.black : Colors.grey.shade50,
-                    padding: EdgeInsets.only(
-                      left: Sizes.size14,
-                      right: Sizes.size14,
-                      top: Sizes.size10,
-                      bottom:
-                          MediaQuery.of(context).padding.bottom + Sizes.size20,
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            height: Sizes.size40,
-                            child: TextField(
-                              controller: _editingController,
-                              expands: true,
-                              minLines: null,
-                              maxLines: null,
-                              textInputAction: TextInputAction.newline,
-                              cursorColor: Theme.of(context).primaryColor,
-                              decoration: InputDecoration(
-                                hintText: "Send a message...",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    Sizes.size12,
+                  ),
+              Positioned(
+                bottom: 0,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  color: isDark ? Colors.black : Colors.grey.shade50,
+                  padding: EdgeInsets.only(
+                    left: Sizes.size14,
+                    right: Sizes.size14,
+                    top: Sizes.size10,
+                    bottom:
+                        MediaQuery.of(context).padding.bottom + Sizes.size20,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _editingController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                Sizes.size12,
+                              ),
+                              borderSide: BorderSide.none,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              //vertical: Sizes.size2,
+                              horizontal: Sizes.size12,
+                            ),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(
+                                right: Sizes.size10,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Gaps.h10,
+                                  FaIcon(
+                                    FontAwesomeIcons.faceSmile,
+                                    color: Theme.of(context).iconTheme.color,
                                   ),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: Sizes.size2,
-                                  horizontal: Sizes.size12,
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: Sizes.size10,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Gaps.h10,
-                                      FaIcon(
-                                        FontAwesomeIcons.faceSmile,
-                                        color:
-                                            Theme.of(context).iconTheme.color,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                ],
                               ),
                             ),
                           ),
                         ),
-                        Gaps.h12,
-                        IconButton(
-                          onPressed: isLoading ? null : _onSendPress,
-                          icon: FaIcon(
-                            isLoading
-                                ? FontAwesomeIcons.hourglass
-                                : FontAwesomeIcons.paperPlane,
-                          ),
+                      ),
+                      Gaps.h12,
+                      IconButton(
+                        onPressed: isLoading ? null : _onSendPress,
+                        icon: FaIcon(
+                          isLoading
+                              ? FontAwesomeIcons.hourglass
+                              : FontAwesomeIcons.paperPlane,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
