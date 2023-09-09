@@ -57,6 +57,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
     if (opponent != null) {
       _addItem(opponent);
+
+      if (!mounted) return;
+      // FIXME: change chatId
+      context.pushNamed(ChatDetailScreen.routeName,
+          params: {"chatId": opponent.uid});
     }
   }
 
@@ -81,7 +86,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "Namhee ($index)",
+            user.name,
             style: const TextStyle(
               fontWeight: FontWeight.w600,
             ),
@@ -95,7 +100,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           ),
         ],
       ),
-      subtitle: const Text("Don't forget to make money"),
+      subtitle: const Text("아직 생성되지 않은 채팅방"),
     );
   }
 
