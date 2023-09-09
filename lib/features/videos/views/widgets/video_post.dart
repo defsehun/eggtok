@@ -286,12 +286,12 @@ class VideoPostState extends ConsumerState<VideoPost>
             child: Column(
               children: [
                 CircleAvatar(
-                  radius: 25,
+                  radius: Sizes.size26,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                   foregroundImage: NetworkImage(
                       "https://firebasestorage.googleapis.com/v0/b/street-workout-project.appspot.com/o/avatars%2F${widget.videoData.creatorUid}?alt=media"),
-                  child: Text(widget.videoData.creator),
+                  child: Text(widget.videoData.creator.substring(0, 3)),
                 ),
                 Gaps.v24,
                 VideoButton(

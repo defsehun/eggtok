@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:street_workout/constants/breakpoint.dart';
 import 'package:street_workout/constants/sizes.dart';
 import 'package:street_workout/features/inbox/views/chat_detail_screen.dart';
+import 'package:street_workout/features/inbox/views/create_chat_screen.dart';
+import 'package:street_workout/features/users/models/user_profile_model.dart';
 
 class ChatsScreen extends StatefulWidget {
   static const String routeName = "chats";
@@ -17,13 +20,13 @@ class ChatsScreen extends StatefulWidget {
 
 class _ChatsScreenState extends State<ChatsScreen> {
   final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
-  final List<int> _items = [];
+  final List<UserProfileModel> _items = [];
   final Duration _duration = const Duration(milliseconds: 300);
 
-  void _addItem() {
+  void _addItem(UserProfileModel opponent) {
     if (_key.currentState != null) {
       _key.currentState!.insertItem(0, duration: _duration);
-      _items.add(_items.length);
+      _items.add(opponent);
     }
   }
 
@@ -44,20 +47,34 @@ class _ChatsScreenState extends State<ChatsScreen> {
     }
   }
 
+  void _onCreateChatPressed() async {
+    final UserProfileModel? opponent = await Navigator.of(context).push(
+      CupertinoPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => const CreateChatScreen(),
+      ),
+    );
+
+    if (opponent != null) {
+      _addItem(opponent);
+    }
+  }
+
   void _onChatTap(int index) {
     context.pushNamed(ChatDetailScreen.routeName, params: {"chatId": "$index"});
   }
 
   Widget _makeTile(int index) {
+    final user = _items[index];
     return ListTile(
       onTap: () => _onChatTap(index),
       onLongPress: () => _deleteItem(index),
-      leading: const CircleAvatar(
+      leading: CircleAvatar(
         radius: 30,
         foregroundImage: NetworkImage(
-          "https://avatars.githubusercontent.com/u/17242597?v=4",
+          "https://firebasestorage.googleapis.com/v0/b/street-workout-project.appspot.com/o/avatars%2F${user.uid}?alt=media",
         ),
-        child: Text("S"),
+        child: Text(user.name.substring(0, 3)),
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +107,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         title: const Text("Direct messages"),
         actions: [
           IconButton(
-            onPressed: _addItem,
+            onPressed: _onCreateChatPressed,
             icon: const FaIcon(
               FontAwesomeIcons.plus,
             ),
