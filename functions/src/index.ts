@@ -64,13 +64,13 @@ export const onVideoCreated = functions.firestore
       });
   });
 
+// DB에서 likes/{likeId} document가 생성될때 아래 함수가 호출됨
 export const onLikedCreated = functions.firestore
   .document("likes/{likeId}")
-  // {likeId}가 생성될 때 발동되는 함수
   .onCreate(async (snapshot, context) => {
+    // videos like update
     const db = admin.firestore();
     const [videoId, userId] = snapshot.id.split("000");
-
     await db
       .collection("videos")
       .doc(videoId)
@@ -78,20 +78,39 @@ export const onLikedCreated = functions.firestore
         likes: admin.firestore.FieldValue.increment(1),
       });
 
-    const videoSnapshot = await db.collection("videos").doc(videoId).get();
-    const thumbnailUrl = videoSnapshot.data()!.thumbnailUrl;
-    const createdAt = videoSnapshot.data()!.createdAt;
+    // users create likedVideos
+    const videoDocData = (await db.collection("videos").doc(videoId).get()).data();
+    if (videoDocData) {
+      const thumbnailUrl = videoDocData.thumbnailUrl;
+      const createdAt = videoDocData.createdAt;
+      await db
+        .collection("users")
+        .doc(userId)
+        .collection("likedVideos")
+        .doc(videoId)
+        .set({
+          thumbnailUrl: thumbnailUrl,
+          videoId: videoId,
+          createdAt: createdAt,
+        });
 
-    await db
-      .collection("users")
-      .doc(userId)
-      .collection("likedVideos")
-      .doc(videoId)
-      .set({
-        thumbnailUrl: thumbnailUrl,
-        videoId: videoId,
-        createdAt: createdAt,
-      });
+      // Push Notifications
+      const creatorUid = videoDocData.creatorUid;
+      const user = (await db.collection("users").doc(creatorUid).get()).data();
+      if (user) {
+        const token = user.token;
+        await admin.messaging().send({
+          token: token,
+          data: {
+            screen: "123",
+          },
+          notification: {
+            title: "Someone like you video",
+            body: "Likes + 1 ! Congrats! 💖"
+          }
+        })
+      }
+    }
 
   });
 

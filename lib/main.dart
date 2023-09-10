@@ -44,7 +44,7 @@ class StreetWorkoutApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // S.load(const Locale("en"));
+    // S.load(const Locale("en")); // 강제로 로컬 변경
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
