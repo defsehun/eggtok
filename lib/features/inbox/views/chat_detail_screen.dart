@@ -46,13 +46,14 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
           horizontalTitleGap: Sizes.size8,
           leading: Stack(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(Sizes.size4),
+              Padding(
+                padding: const EdgeInsets.all(Sizes.size4),
                 child: CircleAvatar(
-                  foregroundImage: NetworkImage(
-                    "https://avatars.githubusercontent.com/u/17242597?v=4",
-                  ),
+                  // foregroundImage: NetworkImage(
+                  //   "https://avatars.githubusercontent.com/u/17242597?v=4",
+                  // ),
                   radius: Sizes.size20,
+                  child: Text(widget.chatId.substring(0, 3)),
                 ),
               ),
               Positioned(
@@ -74,7 +75,7 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
             ],
           ),
           title: Text(
-            "Sehun (${widget.chatId})",
+            widget.chatId,
             style: const TextStyle(
               fontWeight: FontWeight.w600,
             ),

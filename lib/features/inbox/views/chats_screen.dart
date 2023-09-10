@@ -61,7 +61,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       if (!mounted) return;
       // FIXME: change chatId
       context.pushNamed(ChatDetailScreen.routeName,
-          params: {"chatId": opponent.uid});
+          params: {"chatId": opponent.name});
     }
   }
 
