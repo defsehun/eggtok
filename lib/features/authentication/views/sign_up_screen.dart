@@ -41,6 +41,7 @@ class SignUpScreen extends ConsumerWidget {
                 children: [
                   Gaps.v80,
                   Text(
+                    key: const Key("text_title"),
                     S.of(context).signUpTitle('SANS'),
                     style: const TextStyle(
                       fontSize: Sizes.size24,
@@ -112,6 +113,7 @@ class SignUpScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () => _onLoginTap(context),
                     child: Text(
+                      key: const Key("text_login"),
                       S.of(context).logIn('male'),
                       style: Theme.of(context)
                           .textTheme
