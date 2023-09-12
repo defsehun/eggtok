@@ -1,4 +1,4 @@
-# street_workout
+# eggtok
 
 A new Flutter project.
 
